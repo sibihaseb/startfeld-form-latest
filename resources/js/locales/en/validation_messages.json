@@ -1,0 +1,11 @@
+{
+    "required": "This is a mandatory field.",
+    "email": "Email is not valid",
+    "minLength": "This field requires 8 characters or more.",
+    "maxLength": "This field should not be more then 255 characters.",
+    "sameAsPass": "Password confirmation does not match.",
+    "regex": "Username Cannot Include the Special Character.",
+    "integer": "The field must be a number.",
+    "password": "Please input the password",
+    "passwordReEnter": "Re-Enter password again"
+}

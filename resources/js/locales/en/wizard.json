@@ -1,0 +1,37 @@
+{
+    "layout": {
+        "labelButtonNext": "Next",
+        "labelButtonSubmit": "Submit",
+        "labelButtonAccept": "Accept",
+        "labelButtonReject": "Reject",
+        "labelButtonSave": "Save",
+        "labelButtonBack": "Back",
+        "noQuestionWizard": "Wizard don't have questions yet",
+        "formSubmittedSuccessMessage": "Thank You ! Your application has been submitted successfully. Kindly have patience, you will be Notified by email.",
+        "privateNotelableText": "If your want to leave a feedback or a note to this specific step",
+        "404_error": " 404 Page Not Found"
+    },
+    "mainContactDetail": {
+        "title": "Main Contact Detail",
+        "labelSurname": "Surname",
+        "labelFirstname": "Firstname",
+        "labeladdress": "Address",
+        "labelZip": "Zip",
+        "labelCity": "City",
+        "labelEmail": "E-Mail",
+        "labelTitle": "Title",
+        "labelPhone": "Phone",
+        "labelTraining": "Training",
+        "labelCurrentStatus": "Current Status",
+        "labelEmployed": "Employed",
+        "labelUnemployed": "Unemployed",
+        "labelSelfEmployed": "Self-Employed",
+        "labelOther": "Other",
+        "successApplicantRegistered": "Applicant Mail Sent",
+        "successApplicantRegisteredMessage": "Mail with a special Token has been Sent to Your mail.",
+        "titleToken": "Token",
+        "titleButtonAddMemeber": "Add Member",
+        "titleButtonRemoveMember": "Remove Member",
+        "lableTeamMember": "Team Member"
+    }
+}

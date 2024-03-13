@@ -1,0 +1,55 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+h3 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #32e211;
+    color: white;
+}
+
+.header .title {
+    font-size: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.col-1 {
+    display: flex;
+    text-align: left;
+    width: 50%;
+    flex-direction: column;
+}
+
+.col-2 {
+    text-align: right;
+    width: 50%;
+}
+
+.col-item {
+    display: flex;
+    direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.question-paper {
+    background-color: #fff;
+    max-width: 1000px;
+    margin: 50px auto;
+}

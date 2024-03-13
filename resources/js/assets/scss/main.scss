@@ -1,0 +1,268 @@
+@use './colors.scss' as *;
+@use './element-plus.scss';
+
+@font-face {
+    font-family: 'Avenir Next LT Pro';
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: url('../fonts/regular/avenir-next-lt-pro-regular.woff2') format('woff2'),
+        url('../fonts/regular/avenir-next-lt-pro-regular.woff') format('woff'),
+        url('../fonts/regular/avenir-next-lt-pro-regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Avenir Next LT Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-display: auto;
+    src: url('../fonts/demi/avenir-next-lt-pro-demi.woff2') format('woff2'),
+        url('../fonts/demi/avenir-next-lt-pro-demi.woff') format('woff'),
+        url('../fonts/demi/avenir-next-lt-pro-demi.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Avenir Next LT Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-display: auto;
+    src: url('../fonts/bold/avenir-next-lt-pro-bold.woff2') format('woff2'),
+        url('../fonts/bold/avenir-next-lt-pro-bold.woff') format('woff'),
+        url('../fonts/bold/avenir-next-lt-pro-bold.ttf') format('truetype');
+}
+
+body{
+    font-family: 'Avenir Next LT Pro';
+    margin: 0;
+    padding: 0;
+}
+
+.maincontent {
+    min-height: calc(100vh - 520px);
+}
+
+footer {
+height: 50px;
+}
+
+//Size of different Layout
+.main-view{
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.auth-layout{
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    .btactions {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+      }
+}
+
+.header-content{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.footer-content{
+    display: flex;
+}
+
+.error-authform{
+    color: $error;
+    margin-bottom: 15px;
+}
+
+//links color
+a {
+    font-weight: bold;
+    color: $black;
+}
+
+a:hover {
+    color: $gray;
+}
+
+.link:before {
+    content: "\ea6c";
+    font-weight: 900;
+    font-family: 'remixicon' !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+//for all items which uses cursor pointer
+.click-icon {
+    cursor: pointer;
+}
+
+//side-dot bar
+
+.side-green-dot-bar::after{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80px;
+    height: 600px;
+    background: url("@/assets/images/green-dots.png") center center no-repeat;
+    background-size: contain;
+    z-index: -1;
+}
+
+.side-pink-dot-bar::after{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80px;
+    height: 600px;
+    background: url("@/assets/images/pink-pattern.png") center center no-repeat;
+    background-size: contain;
+    z-index: -1;
+}
+
+.side-blue-dot-bar::after{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    height: 600px;
+    background: url("@/assets/images/blue-dots.png") center center no-repeat;
+    background-size: contain;
+    z-index: -1;
+}
+
+
+//user table
+/*--- Start User Table CSS ---*/
+table.user-table {
+    border: none;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
+}
+
+table.user-table tr {
+    padding: .35em;
+}
+
+table.user-table th,
+table.user-table td {
+    padding: .625em;
+    text-align: left;
+    vertical-align: top;
+}
+
+table.user-table th {
+    font-size: .9em;
+    color: #909399;
+    vertical-align: top;
+}
+
+table.user-table .fixed-width {
+    width: 140px;
+}
+
+table.user-table .role {
+    width: 50px;
+}
+
+
+table.user-table .action {
+    width: 45px;
+}
+
+table {
+    empty-cells: show;
+}
+
+@media screen and (max-width: 860px) {
+    .side-blue-dot-bar::after{
+        display: none;
+    }
+    .side-pink-dot-bar::after{
+        display:none
+    }
+    .side-green-dot-bar::after{
+        display:none
+    }
+    table.user-table {
+        border: 0;
+    }
+    table {
+        empty-cells: show;
+    }
+
+    table.user-table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table.user-table tr {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table.user-table td {
+        display: block;
+        font-size: .8em;
+        text-align: right;
+        width: 100%;
+    }
+
+    table.user-table td::before {
+        /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+
+    table.user-table td:last-child {
+        border-bottom: 0;
+    }
+
+    table.user-table .fixed-width {
+        width: calc(100% - 10px);
+    }
+
+    table.user-table .applicant-status{
+     max-width: 120px;
+    }
+
+    table.user-table tr{
+        align-items: center;
+        justify-content: center;
+    }
+
+    table.user-table .action {
+        width: calc(100% - 10px);
+    }
+    table.user-table .role {
+        width: calc(100% - 10px);
+    }
+}
+
+/*--- END User Table CSS ---*/
+
+//for notification icon outline
+:focus-visible {
+    outline: none;
+}

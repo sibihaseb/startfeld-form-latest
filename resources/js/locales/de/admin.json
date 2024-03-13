@@ -1,0 +1,127 @@
+{
+    "users": {
+        "list": {
+            "userVerify": {
+                "title": "Benutzer aktivieren",
+                "message": "Möchtest du den Benutzer aktivieren?"
+            },
+            "userVerifySuccessMsg": "Benutzer aktiviert",
+            "userVerifyErrorMsg": "Aktivierung fehlgeschlagen",
+            "userVerifyConfirmBt": "Aktivieren",
+            "userVerifyCancelBt": "Abbrechen",
+            "userDeleteSuccessMsg": "Benutzer gelöscht",
+            "userDeleteErrorMsg": "Löschen fehlgeschlagen",
+            "deleteUserWarning": {
+                "title": "Benutzer permanent löschen?",
+                "message": "Achtung: Der Benutzer und alle seine Daten werden unwiderruflich gelöscht. Willst du den Benutzer wirklich löschen?"
+            },
+            "deleteConfirmButtonText": "Ja",
+            "deleteCancelButtonText": "Abbrechen",
+            "adminItSelfDeleteMessage": "Cannot Delete itself"
+        },
+        "userManagement": {
+            "placeholderSearch": "Suchen...",
+            "title": "Benutzerverwaltung",
+            "labelName": "Name",
+            "labelUsername": "Benutzername",
+            "labelEmail": "E-Mail",
+            "labelRole": "Rolle",
+            "roleSuperAdminLabel": "SuperAdmin",
+            "roleAdminLabel": "Admin",
+            "labelVerified_at": "Aktiviert?",
+            "labelAction": "Aktionen",
+            "labelAdmin": "Admin",
+            "createUserButton": "Benutzer erstellen",
+            "editTitle": "Bearbeiten",
+            "deleteTitle": "Delete",
+            "verifyUserTitle": "Aktivieren"
+        },
+        "createOrEdit": {
+            "titleCreate": "Neuer Benutzer",
+            "titleEdit": "Benutzer bearbeiten",
+            "labelInputFirstName": "Vorname",
+            "placeholderInputFirstName": "Vorname",
+            "labelInputLastName": "Nachname",
+            "placeholderInputLastName": "Nachname",
+            "labelInputEmail": "E-Mail",
+            "labelNotification": "Notification",
+            "placeholderInputEmail": "E-Mail",
+            "labelInputPassword": "Passwort",
+            "placeholderInputPassword": "Passwort",
+            "labelRoleInput": "Rolle",
+            "roleSuperAdminLabel": "Super Admin",
+            "roleAdminLabel": "Admin",
+            "labelNotificationInput": "Notification",
+            "saveButtonText": "Speichern",
+            "passwordResetText": "leer lassen um Passwort beizubehalten",
+            "cancelButtonText": "Abbrechen",
+            "createSuccessTitle": "Erfolgreich",
+            "createSuccessMsg": "Benutzer erstellt",
+            "createErrorTitle": "Fehler",
+            "createErrorMsg": "Benutzer erstellen ist fehlgeschlagen",
+            "updateSuccessTitle": "Erfolgreich",
+            "updateSuccessMsg": "Änderungen gespeichert",
+            "updateErrorTitle": "Fehler",
+            "updateErrorMsg": "Änderungen konnten nicht gespeichert werden."
+        }
+    },
+    "application": {
+        "list": {
+            "statusChangeSuccessMessage": "Status geändert",
+            "statusChangeErrorMessage": "Status konnte nicht geändert werden",
+            "applicationDeleteSuccessMsg": "Antrag gelöscht",
+            "applicationDeleteErrorMsg": "Antrag konnte nicht gelöscht werden",
+            "deleteApplicationWarning": {
+                "title": "Antrag löschen?",
+                "message": "Wollen Sie wirklich den Antrag löschen?"
+            },
+            "deleteConfirmButtonText": "Bestätigen",
+            "deleteCancelButtonText": "Abbrechen"
+        },
+        "applicationManagement": {
+            "placeholderSearch": "Suchen...",
+            "title": "Antragsverwaltung",
+            "labelName": "Name",
+            "labelEmail": "E-Mail",
+            "labelProjectName": "Projekt Name",
+            "labelAppliedDate": "Einreichedatum",
+            "labelApplicationStatus": "Status",
+            "labelSelectApplicationStatus": "Status wählen",
+            "labelAction": "",
+            "viewTitle": "Antrag ansehen",
+            "editTitle": "Antrag bearbeiten",
+            "deleteTitle": "Löschen",
+            "pdfTitle": "PDF Download"
+        },
+        "applicationEditView": {
+            "viewTitle": "Antrag",
+            "editTitle": "Antrag bearbeiten",
+            "editApplicationTitle": "Bearbeiten"
+        }
+    },
+    "profileSetting": {
+        "titleCreate": "Profileinstellungen",
+        "labelInputFirstName": "Vorname",
+        "placeholderInputFirstName": "Vorname",
+        "labelInputLastName": "Nachname",
+        "placeholderInputLastName": "Nachname",
+        "labelInputEmail": "E-Mail",
+        "placeholderInputEmail": "E-Mail",
+        "labelInputPassword": "Passwort",
+        "placeholderInputPassword": "Passwort",
+        "saveButtonText": "Speichern",
+        "passwordResetText": "Password leer lassen, falls keine Änderung",
+        "cancelButtonText": "Abbrechen",
+        "updateSuccessTitle": "Profil gespeichert",
+        "updateSuccessMsg": "Profiländerungen übernommen",
+        "updateErrorTitle": "Fehler",
+        "updateErrorMsg": "Profiländerungen konnten nicht gespeichert werden"
+    },
+    "footer": {
+        "language": {
+            "label": "Sprach",
+            "en": "English",
+            "de": "Deutsch"
+        }
+    }
+}

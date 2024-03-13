@@ -1,0 +1,127 @@
+{
+    "users": {
+        "list": {
+            "userVerify": {
+                "title": "Verify user",
+                "message": "Do you want to verify user"
+            },
+            "userVerifySuccessMsg": "User activated successful",
+            "userVerifyErrorMsg": "Activation unsuccessful",
+            "userVerifyConfirmBt": "Activate",
+            "userVerifyCancelBt": "Cancel",
+            "userDeleteSuccessMsg": "User deleted",
+            "userDeleteErrorMsg": "User not deleted",
+            "deleteUserWarning": {
+                "title": "Delete user?",
+                "message": "Do you really want to delete this user?"
+            },
+            "deleteConfirmButtonText": "Confirm",
+            "deleteCancelButtonText": "Cancel",
+            "adminItSelfDeleteMessage": "Cannot Delete itself"
+        },
+        "userManagement": {
+            "placeholderSearch": "Search...",
+            "title": "User management",
+            "labelName": "Name",
+            "labelUsername": "Username",
+            "labelEmail": "Email",
+            "labelNotification": "Notification",
+            "labelRole": "Role",
+            "roleSuperAdminLabel": "SuperAdmin",
+            "roleAdminLabel": "Admin",
+            "labelVerified_at": "Activated at",
+            "labelAction": "Actions",
+            "labelAdmin": "Admin",
+            "createUserButton": "Create user",
+            "editTitle": "Edit",
+            "deleteTitle": "Delete",
+            "verifyUserTitle": "Activate user"
+        },
+        "createOrEdit": {
+            "titleCreate": "Create user",
+            "titleEdit": "Edit user",
+            "labelInputFirstName": "Firstname",
+            "placeholderInputFirstName": "Firstname",
+            "labelInputLastName": "Lastname",
+            "placeholderInputLastName": "Lastname",
+            "labelInputEmail": "Email",
+            "placeholderInputEmail": "Email",
+            "labelInputPassword": "Password",
+            "placeholderInputPassword": "Password",
+            "labelRoleInput": "Role",
+            "roleSuperAdminLabel": "SuperAdmin",
+            "roleAdminLabel": "Admin",
+            "labelNotificationInput": "Notification",
+            "saveButtonText": "Save",
+            "passwordResetText": "type password for reset otherwise leave empty",
+            "cancelButtonText": "Cancel",
+            "createSuccessTitle": "User created",
+            "createSuccessMsg": "User created successfully",
+            "createErrorTitle": "User not created",
+            "createErrorMsg": "User created unsuccessfully",
+            "updateSuccessTitle": "User updated",
+            "updateSuccessMsg": "User updated successfully",
+            "updateErrorTitle": "User not updated",
+            "updateErrorMsg": "Updating user unsuccessfully"
+        }
+    },
+    "application": {
+        "list": {
+            "statusChangeSuccessMessage": "Application Status Changed Successfull",
+            "statusChangeErrorMessage": "Application Status Changed Failed",
+            "applicationDeleteSuccessMsg": "Application deleted",
+            "applicationDeleteErrorMsg": "Application not deleted",
+            "deleteApplicationWarning": {
+                "title": "Delete Application?",
+                "message": "Do you really want to delete this Application?"
+            },
+            "deleteConfirmButtonText": "Confirm",
+            "deleteCancelButtonText": "Cancel"
+        },
+        "applicationManagement": {
+            "placeholderSearch": "Search...",
+            "title": "Application management",
+            "labelName": "Name",
+            "labelEmail": "Email",
+            "labelProjectName": "Project Name",
+            "labelAppliedDate": "Applied Date",
+            "labelApplicationStatus": "Application Status",
+            "labelSelectApplicationStatus": "Select Application Status",
+            "labelAction": "Actions",
+            "viewTitle": "View Application",
+            "editTitle": "Edit Application",
+            "deleteTitle": "Delete",
+            "pdfTitle": "PDF Download"
+        },
+        "applicationEditView": {
+            "viewTitle": "Application View",
+            "editTitle": "Application Edit",
+            "editApplicationTitle": "Edit Application"
+        }
+    },
+    "profileSetting": {
+            "titleCreate": "Profile Setting",
+            "labelInputFirstName": "Firstname",
+            "placeholderInputFirstName": "Firstname",
+            "labelInputLastName": "Lastname",
+            "placeholderInputLastName": "Lastname",
+            "labelInputEmail": "Email",
+            "placeholderInputEmail": "Email",
+            "labelInputPassword": "Password",
+            "placeholderInputPassword": "Password",
+            "saveButtonText": "Save",
+            "passwordResetText": "type password for reset otherwise leave empty",
+            "cancelButtonText": "Cancel",
+            "updateSuccessTitle": "Profile Updated",
+            "updateSuccessMsg": "Profile updated successfully",
+            "updateErrorTitle": "Profile not updated",
+            "updateErrorMsg": "Updating Profile unsuccessfully"
+    },
+    "footer": {
+        "language": {
+            "label": "Language",
+            "en": "English",
+            "de": "Deutsch"
+        }
+    }
+}
