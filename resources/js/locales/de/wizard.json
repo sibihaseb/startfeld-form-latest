@@ -1,0 +1,37 @@
+{
+    "layout": {
+        "labelButtonNext": "Weiter",
+        "labelButtonSubmit": "Absenden",
+        "labelButtonAccept": "Akzeptieren",
+        "labelButtonReject": "Zurückweisen",
+        "labelButtonSave": "Speichern",
+        "labelButtonBack": "Zurück",
+        "noQuestionWizard": "Formularfragen fehlen (Admin)",
+        "formSubmittedSuccessMessage": "Vielen Dank! Ihr Antrag wurde erfolgreich übermittelt. Bitte haben Sie nun etwas Geduld, bis wir Ihre Antrag geprüft haben. Sie werden danach per E-Mail benachrichtigt..",
+        "privateNotelableText": "Nur für Admins sichtbare Bemerkungen. ",
+        "404_error": " 404 Seite nicht gefunden"
+    },
+    "mainContactDetail": {
+        "title": "Kontaktdaten Hauptansprechpartner",
+        "labelSurname": "Nachname",
+        "labelFirstname": "Vorname",
+        "labeladdress": "Adresse",
+        "labelZip": "PLZ",
+        "labelCity": "Ort",
+        "labelEmail": "E-Mail",
+        "labelTitle": "Titel",
+        "labelPhone": "Telefon",
+        "labelTraining": "Ausbildung",
+        "labelCurrentStatus": "Aktueller Status",
+        "labelEmployed": "Angestellt",
+        "labelUnemployed": "Arbeitslos",
+        "labelSelfEmployed": "Selbständig",
+        "labelOther": "Anderer",
+        "successApplicantRegistered": "E-Mail mit Bestätigungs versandt",
+        "successApplicantRegisteredMessage": "Ein E-Mail mit einem Link zum späteren Bearbeiten des Antrages wurde an Sie versandt.",
+        "titleToken": "Schlüsse",
+        "titleButtonAddMemeber": "Teammitglied hinzufügen",
+        "titleButtonRemoveMember": "Teammitglied entfernen",
+        "lableTeamMember": "Teammitglied"
+    }
+}

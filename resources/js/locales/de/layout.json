@@ -1,0 +1,19 @@
+{
+    "defaultLayout": {
+        "labelLogin": "Login"
+    },
+    "dashboardLayout": {
+        "welcomeMessage": "Hallo",
+        "labelNotification": "Benachrichtigungen",
+        "labelNotificationOn": "Ein",
+        "labelNotificationOff": "Aus",
+        "labelLogout": "Logout",
+        "labelUserManagement": "Benutzerverwaltung",
+        "labelProfileSetting": "Profileinstellungen",
+        "labelApplicationManagement": "Verwaltung Anträge",
+
+        "footer": {
+            "poweredBy": "powered By"
+        }
+    }
+}

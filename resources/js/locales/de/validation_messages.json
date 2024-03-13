@@ -1,0 +1,11 @@
+{
+    "required": "Pflichtfeld",
+    "email": "keine gültive E-Mailadresse",
+    "minLength": "min. 8 Zeichen benötigt.",
+    "maxLength": "Diese Feld kann maximal 255 Zeichen enthalten.",
+    "sameAsPass": "Passwort stimmt nicht überein.",
+    "regex": "Benutzername darf keine Sonderzeichen enthalten.",
+    "integer": "Bitte Zahl eingeben.",
+    "password": "Bitte Passwort eingeben",
+    "passwordReEnter": "Passwort wiederholen"
+}

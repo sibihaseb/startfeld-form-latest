@@ -1,0 +1,134 @@
+@use './colors.scss' as *;
+.wizard .submit-save-action .el-button+.el-button {
+    margin-left: 20px !important;
+}
+
+.wizard-form .el-form-item__error {
+    margin-top: 5px;
+}
+
+.wizard-form .el-form-item label {
+    margin-top: 25px;
+}
+
+.el-radio-group label {
+    margin-top: 0px !important;
+}
+
+.el-radio__input.is-checked .el-radio__inner
+{
+    border-color: $primary !important;
+    background: $primary !important;
+}
+
+.el-radio__input.is-checked+.el-radio__label{
+    color: $primary !important;
+}
+
+p {
+    display: block;
+    margin-block-start: 0em !important;
+    margin-block-end: 0em !important;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.private-note-line {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.private-note-text {
+    font-size: small;
+    font-style: italic;
+}
+
+.accept-bt {
+    margin-right: 30px;
+}
+
+.reject-bt:hover {
+    border-color: $error !important;
+    background-color: $error !important;
+}
+
+.error {
+    color: $error;
+}
+//Color of current step
+// .el-step__head.is-wait {
+//     color: $primary;
+//     border-color: $primary;
+// }
+
+//Color of processing step
+// .el-step__head.is-process {
+//     color: $pink;
+//     border-color: $pink;
+// }
+
+//Color of Success step
+.el-step__head.is-success {
+    color: $primary;
+    border-color: $primary;
+}
+
+.el-form-item {
+    max-width: 750px;
+}
+
+.wizard .el-button+.el-button {
+    margin-left: 0px !important;
+}
+
+.wizard-step {
+    cursor: pointer;
+}
+
+.private-note {
+    margin-top: 20px;
+    max-width: 750px;
+}
+
+.form-submitted {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.success {
+    color: $primary;
+}
+
+.box {
+    background-color: $lightgray;
+    border-radius: 10px;
+    max-width: 700px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.space-bottom {
+    margin-bottom: 5px;
+}
+
+.next-step {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.wizard {
+    margin-top: 30px;
+}
+
+.action-bt-member {
+    display: flex;
+    max-width: 275px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
