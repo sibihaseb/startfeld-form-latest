@@ -1,6 +1,6 @@
 <template>
   <div class="main-view">
-    <div v-if="allQuestions.length > 0">
+    <div v-if="allQuestions.length > 0" class="form__wizard">
     <div class="wizard-header">
       <el-steps
         :active="WizardProgressTracker.activeStepNo"

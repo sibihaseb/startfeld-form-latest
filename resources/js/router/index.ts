@@ -49,8 +49,20 @@ const SuperadminGuard = async (to: RouteLocationNormalized, from: RouteLocationN
 const router = createRouter({
     history: createWebHistory(import.meta.env.VITE_BASE_URL),
     routes: [
+                {
+            path: "/",
+            name: "landing-page",
+            // route level code-splitting
+            // this generates a separate chunk (Login.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import("../views/landginpage.vue"),
+            meta: {
+                layout: DefaultLayout,
+            }
+        },
         {
-            path: "/:token?",
+            path: "/form",
+            // path: "/:token?",
             name: "wizard",
             // route level code-splitting
             // this generates a separate chunk (Login.[hash].js) for this route

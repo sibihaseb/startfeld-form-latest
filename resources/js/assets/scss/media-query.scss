@@ -1,0 +1,162 @@
+/* 4 columns for screens <= 1440px */
+@use "./colors.scss" as *;
+
+@media (max-width: 1440px) {
+  .box {
+    flex-basis: 25%;
+  }
+}
+
+/* 4 columns for screens <= 1034px */
+@media only screen and (max-width: 1024px) {
+  .box {
+    flex-basis: 25%;
+  }
+  .__hero {
+    flex-direction: column;
+  }
+  .hero__description {
+    width: 90%;
+  }
+  .hero__description h3 {
+    font-size: 2rem;
+    font-family: 'GraphikSemibold';
+    font-weight: 700;
+  }
+  .hero__image {
+    width: 60%;
+  }
+}
+
+/* 3 columns for screens <= 768px */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-family: 'GraphikSemibold';
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-family: 'GraphikSemibold';
+    font-size: 24px;
+    font-weight: 500;
+  }
+  h3 {
+    font-family: 'GraphikSemibold';
+    color: $text-color;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .box {
+    flex-basis: 33.33%;
+  }
+  .hero__image {
+    width: 60%;
+  }
+  .cancel {
+    display: block;
+    position: absolute;
+    top: 3%;
+    left: 5%;
+  }
+
+  .__buttons {
+    position: fixed;
+    height: 100vh;
+    width: 300px;
+    top: 0;
+    right: -300px;
+    text-align: left;
+    z-index: 999;
+    background-color: $white;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    box-sizing: border-box;
+    gap: 1rem;
+  }
+
+  .__buttons.hidden {
+    right: -300px;
+  }
+
+  .__buttons.visible {
+    right: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  .user__reviews {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    gap: 10%;
+    padding-block: 2rem;
+    flex-direction: column;
+  }
+  .user__details {
+    margin-bottom: 2rem;
+  }
+  .subs_desc {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .subscribe form {
+    width: 80%;
+  }
+  footer .row {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .user__data .user__image {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* 1 column for screens <= 640px */
+@media (max-width: 640px) {
+  .__hero {
+    padding-block: 3rem;
+  }
+  .hero__image {
+    width: 90%;
+  }
+  .__hero p {
+    font-size: 14px;
+    font-family: 'GraphikRegular';
+    padding-block: 1rem;
+  }
+
+  .hero__buttons {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 100%;
+  }
+  .hero__buttons button {
+    font-size: 12px;
+    font-family: 'GraphikRegular';
+    margin-inline: 0;
+  }
+  .works__box {
+    flex-direction: column;
+  }
+  .box {
+    flex-basis: 100%;
+  }
+
+  .subscribe-btn {
+    padding: 5px 12px;
+    border: 2px solid $text-color;
+    border-radius: 4px;
+    font-family: 'GraphikRegular';
+    font-size: 12px;
+    cursor: pointer;
+    color: $white;
+    background-color: $text-color;
+  }
+}

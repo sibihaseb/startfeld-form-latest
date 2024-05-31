@@ -42,11 +42,17 @@ class DatabaseSeeder extends Seeder
             ),
             'description' =>
             array(
-                'value' => 'Please email description to:startup@startfeld.ch',
+                // 'value' => 'Please email description to:startup@startfeld.ch',
+                // 'name' =>
+                // array(
+                //     'de' => 'Please email description to:startup@startfeld.ch',
+                //     'en' => 'Please email description to:startup@startfeld.ch',
+                // ),
+                'value' => 'Please email description to:support@fokusnetwork.com',
                 'name' =>
                 array(
-                    'de' => 'Please email description to:startup@startfeld.ch',
-                    'en' => 'Please email description to:startup@startfeld.ch',
+                    'de' => 'Please email description to:support@fokusnetwork.com',
+                    'en' => 'Please email description to:support@fokusnetwork.com',
                 ),
             ),
             'answer_type' => 'title'
