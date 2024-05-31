@@ -109,7 +109,7 @@ const setLocale = (item: string) => {
 };
 
 const homeView = () => {
-    router.push({ name: "landing-page" });
+    router.push({ name: "landingPage" });
 };
 
 const loginView = () => {
@@ -126,7 +126,7 @@ const showMenu = () => {
 const hideMenu = () => {
     isVisible.value = false;
 };
-const options = ref(['USA', 'Canada', 'Mexico']); // Replace with your options
+const options = ref(['USA', 'German']); // Replace with your options
 const selectedOption = ref('Select a country');
 const isOpen = ref(false);
 

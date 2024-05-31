@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Startfeld-form</title>
+    <title>Fokus Network</title>
 
     @vite('resources/js/app.ts')
     @vite('resources/js/assets/scss/main.scss')

@@ -1,0 +1,52 @@
+{
+        "heroSection": {
+            "empower": "Digitale Innovation mit Fokusgruppen förd<span class='desc_span'>e</span>rn",
+            "description": "Treten Sie der führenden Plattform für die Durchführung und Teilnahme an Fokusgruppen zu digitalen Produkten bei. Ob Sie als Forscher wertvolle Einblicke suchen oder als Teilnehmer Ihre Meinungen teilen möchten – das Fokus-Netzwerk verbindet Sie mit den richtigen Möglichkeiten.",
+            "exploreMoreBtn": "Mehr Erfahren",
+            "getStartedBtn": "Loslegen"
+        },
+        "videoSection": {
+            "title": "Verwandeln Sie <span>Ideen</span> in <span>Erfolg</span>",
+            "description": "Nutzen Sie detaillierte Einblicke aus unseren Fokusgruppen, um Ihre digitale Produktstrategie zu verbessern.",
+            "videoBtn": "Noch Heute Starten"
+        },
+        "works": {
+            "title": "",
+            "description": "Das Fokus-Netzwerk vereinfacht den gesamten Prozess der Fokusgruppen in einfache, handhabbare Schritte:",
+            "btn": "Mehr Erfahren",
+            "cards": {
+                "registerTitle": "Benutzerregistrierung",
+                "registerDescription": "Erstellen Sie Ihr Profil und lassen Sie sich mit passenden Projekten verbinden.",
+                "projectTitle": "Projekterstellung",
+                "projectDescription": "Definieren Sie Ihre Projektparameter und Zielgruppe.",
+                "participantTitle": "Teilnehmerabgleich",
+                "participantDescription": "Unser System findet Teilnehmer basierend auf Ihren Kriterien.",
+                "sessionsTitle": "Fokusgruppensitzungen",
+                "sessionsDescription": "Führen Sie aufschlussreiche Sitzungen mit benutzerfreundlichen Online-Tools durch.",
+                "feedbackTitle": "Feedback & Analyse",
+                "feedbackDescription": "Sammeln und analysieren Sie Feedback, um Ihre Produktinnovation voranzutreiben."
+            }
+        },
+        "reviews": {
+            "title": "Was unsere Nutzer sagen",
+            "description": "Hören Sie von Forschern und Teilnehmern, die vom Fokus-Netzwerk profitiert haben",
+            "comment": {
+                "username1": "John D.",
+                "designation1": "Forscher",
+                "title1": "Es war eine großartige Erfahrung",
+                "body1": "Wählen Sie Ihr bevorzugtes soziales Netzwerk und teilen Sie unsere Icons mit Ihren Kontakten oder Freunden. Wenn Sie diese sozialen Netzwerke nicht haben, kopieren Sie einfach den Link und fügen Sie ihn in das ein, das Sie verwenden. Das Quartier ist eine Immobilien-, Architektur- und Innendesign-Website für Immobilien. Wählen Sie Ihr bevorzugtes soziales Netzwerk und teilen Sie unsere Icons mit Ihren Kontakten oder Freunden. Wenn Sie diese sozialen Netzwerke nicht haben, kopieren Sie einfach den Link und fügen Sie ihn in das ein, das Sie verwenden.",
+                "username2": "Sarah L.",
+                "designation2": "Teilnehmerin",
+                "username3": "Luke Harper",
+                "designation3": "Vertriebsleiter"
+            }
+        },
+        "faqs": {
+            "title": "Häufig gestellte Fragen",
+            "btn": "Mehr Sehen"
+        },
+        "subscribe": {
+            "title": "Bereit einzutauchen?",
+            "btn": "Abonnieren"
+        }
+}

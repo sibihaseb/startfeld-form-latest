@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import deauth from '../locales/de/auth.json';
 import deadmin from '../locales/de/admin.json';
 import devalidation from '../locales/de/validation_messages.json';
+import delanding from '../locales/en/landing.json';
 import delayout from '../locales/de/layout.json';
 import dewizard from '../locales/de/wizard.json';
 
@@ -14,6 +15,7 @@ import dewizard from '../locales/de/wizard.json';
 import enauth from '../locales/en/auth.json';
 import enadmin from '../locales/en/admin.json';
 import envalidation from '../locales/en/validation_messages.json';
+import enlanding from '../locales/en/landing.json';
 import enlayout from '../locales/en/layout.json';
 import enwizard from '../locales/en/wizard.json';
 
@@ -23,14 +25,16 @@ const messages = {
         admin: deadmin,
         validation_messages: devalidation,
         layout: delayout,
-        wizard: dewizard
+        wizard: dewizard,
+        landing: delanding,
     },
     en: {
         auth: enauth,
         admin: enadmin,
         validation_messages: envalidation,
         layout: enlayout,
-        wizard: enwizard
+        wizard: enwizard,
+        landing: enlanding,
     }
 };
 

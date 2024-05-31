@@ -10,6 +10,7 @@ import de from 'element-plus/dist/locale/de.mjs'
 
 const xapp = createApp(app);
 const pinia = createPinia();
+
 xapp.use(ElementPlus,{
     locale: de,
  });

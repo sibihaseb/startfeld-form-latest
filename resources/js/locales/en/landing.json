@@ -1,0 +1,52 @@
+{
+        "heroSection": {
+            "empower": "Empower Digital Innovation with Focus Groups",
+            "description": "Join the leading platform for conducting and participating in focus groups on digital products. Whether you're a researcher seeking valuable insights or a participant eager to share your opinions, Fokus Network connects you to the right opportunities.",
+            "exploreMoreBtn": "Explore More",
+            "getStartedBtn": "Get Started"
+        },
+        "videoSection": {
+            "title": "Transform Ideas into Success",
+            "description": "Leverage detailed insights from our focus groups to enhance your digital product strategy.",
+            "videoBtn": "Get Started Today"
+        },
+        "works": {
+            "title": "How It Works",
+            "description": "Fokus Network streamlines the entire focus group process into simple,manageable steps:",
+            "btn": "Learn more",
+            "cards": {
+                "registerTitle": "User Registration",
+                "registerDescription": "Create your profile and get matched with suitable projects.",
+                "projectTitle": "Project Creation",
+                "projectDescription": "Define your project parameters and target audience.",
+                "participantTitle": "Participant Matching",
+                "participantDescription": "Our system matches participants based on your criteria",
+                "sessionsTitle": "Focus Group Sessions",
+                "sessionsDescription": "Conduct insightful sessions with easy-to-use online tools.",
+                "feedbackTitle": "Feedback & Analysis",
+                "feedbackDescription": "Collect and analyze feedback to drive your product innovation."
+            }
+        },
+        "reviews": {
+            "title": "What Our Users Say",
+            "description": "Hear from researchers and participants who have benefited from Fokus Network",
+            "comment": {
+                "username1": "John D.",
+                "designation1": "Researcher",
+                "title1": "It was a Great Experience",
+                "body1": "Select your favorite social network and share our icons with your contacts or friends. If you don’t have these social networks, simply copy the link and paste it in the one you use.The quarter is a Real Estate, Architecture & interior design for real estate website.Select your favorite social network and share our icons with your contacts or friends. If you don’t have these social networks, simply copy the link and paste it in the one you use.",
+                "username2": "Sarah L.",
+                "designation2": "Participant",
+                "username3": "Luke Harper",
+                "designation3": "Sales Manager"
+            }
+        },
+        "faqs": {
+            "title": "Frequently asked questions",
+            "btn": "See more"
+        },
+        "subscribe": {
+            "title": "Ready to Dive In?",
+            "btn": "Subscribe"
+        }
+}
