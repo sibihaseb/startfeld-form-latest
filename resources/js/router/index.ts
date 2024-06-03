@@ -121,6 +121,18 @@ const router = createRouter({
             }
         },
         {
+            path: "/admin/form",
+            name: "form_bulid",
+            // route level code-splitting
+            // this generates a separate chunk (Login.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import("../views/admin/formdev/form.vue"),
+            beforeEnter: SuperadminGuard,
+            meta: {
+                layout: DashboardLayout,
+            }
+        },
+        {
             path: "/admin/users/:user_id/edit",
             name: "edit_user",
             // route level code-splitting
