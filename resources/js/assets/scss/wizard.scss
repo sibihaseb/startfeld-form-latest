@@ -1,59 +1,28 @@
-@use "./colors.scss" as *;
-.form__wizard {
-    max-width: 90%;
-    margin: auto;
-    margin-block: 4rem;
-}
-
-.el-button {
-    border-color: $text-color;
-    padding: 12px 24px;
-    border: 2px solid $text-color;
-    background-color: $text-color;
-    border-radius: 4px;
-    color: $white;
-    font-family: "GraphikRegular";
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-.el-button:hover, .el-button:focus {
-    background-color: transparent;
-    border: 2px solid $text-color;
-    color: $text-color;
-}
-.el-form-item {
-    font-family: "GraphikRegular";
-     margin-top: 25px;
-}
-.wizard .submit-save-action .el-button + .el-button {
+@use './colors.scss' as *;
+.wizard .submit-save-action .el-button+.el-button {
     margin-left: 20px !important;
 }
 
 .wizard-form .el-form-item__error {
     margin-top: 5px;
 }
-.el-icon svg {
-    height: 1em;
-    width: 1em;
-    color: $success;
-}
 
-// .wizard-form .el-form-item label {
-//     margin-top: 25px;
-// }
+.wizard-form .el-form-item label {
+    margin-top: 25px;
+}
 
 .el-radio-group label {
     margin-top: 0px !important;
 }
 
-.el-radio__input.is-checked .el-radio__inner {
-    border-color: $text-color !important;
+.el-radio__input.is-checked .el-radio__inner
+{
+    border-color: $primary !important;
     background: $primary !important;
 }
 
-.el-radio__input.is-checked + .el-radio__label {
-    color: $text-color !important;
+.el-radio__input.is-checked+.el-radio__label{
+    color: $primary !important;
 }
 
 p {
@@ -100,15 +69,15 @@ p {
 
 //Color of Success step
 .el-step__head.is-success {
-    color: $success;
-    border-color: $success;
+    color: $primary;
+    border-color: $primary;
 }
 
 .el-form-item {
     max-width: 750px;
 }
 
-.wizard .el-button + .el-button {
+.wizard .el-button+.el-button {
     margin-left: 0px !important;
 }
 
@@ -162,10 +131,4 @@ p {
     max-width: 275px;
     justify-content: space-between;
     margin-bottom: 20px;
-}
-
-@media only screen and (max-width: 768px) {
-    .auth-layout {
-        width: 90%;
-    }
 }
