@@ -1,12 +1,16 @@
 {
+        "header": {
+            "signIn": "Anmelden",
+            "signUp": "Melden Sie sich an"
+        },
         "heroSection": {
-            "empower": "Digitale Innovation mit Fokusgruppen förd<span class='desc_span'>e</span>rn",
+            "empower": "Digitale Innovation mit Fokusgruppen fördern",
             "description": "Treten Sie der führenden Plattform für die Durchführung und Teilnahme an Fokusgruppen zu digitalen Produkten bei. Ob Sie als Forscher wertvolle Einblicke suchen oder als Teilnehmer Ihre Meinungen teilen möchten – das Fokus-Netzwerk verbindet Sie mit den richtigen Möglichkeiten.",
             "exploreMoreBtn": "Mehr Erfahren",
             "getStartedBtn": "Loslegen"
         },
         "videoSection": {
-            "title": "Verwandeln Sie <span>Ideen</span> in <span>Erfolg</span>",
+            "title": "Verwandeln Sie Ideen in Erfolg",
             "description": "Nutzen Sie detaillierte Einblicke aus unseren Fokusgruppen, um Ihre digitale Produktstrategie zu verbessern.",
             "videoBtn": "Noch Heute Starten"
         },
@@ -48,5 +52,18 @@
         "subscribe": {
             "title": "Bereit einzutauchen?",
             "btn": "Abonnieren"
+        },
+        "footer": {
+            "logoDesc": "Bleiben Sie auf dem neuesten Stand von Fokus Network. Folgen Sie uns in den sozialen Medien oder kontaktieren Sie uns direkt bei Fragen.",
+            "links": "lien",
+            "aboutUs": "über uns",
+            "howItWorks": "Wie es funktioniert",
+            "testimonials": "Referenzen",
+            "contactUs": "Kontaktiere uns",
+            "legalInformation": "Rechtsinformation",
+            "privacyPolicy": "Datenschutzrichtlinie",
+            "cookies": "Kekse",
+            "faqs": "FAQs",
+            "getInTouch": "In Kontakt kommen"
         }
 }

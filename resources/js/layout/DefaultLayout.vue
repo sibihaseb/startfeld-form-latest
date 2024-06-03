@@ -15,7 +15,7 @@
           <div class="dropdown__language">
             <div class="dropdown">
               <el-select
-                class="language-select"
+                class="language-select select"
                 size="small"
                 v-model="i18nLocale.locale.value"
                 @change="setLocale"
@@ -32,10 +32,10 @@
             </div>
           </div>
           <button class="custom-btn sign__in" @click="loginView">
-            Sign In
+            {{ $t("landing.header.signIn")}}
           </button>
           <button class="custom-btn active sign__in" @click="registerView">
-            Sign Up
+            {{ $t("landing.header.signUp")}}
           </button>
         </div>
         <div class="hamburger" @click="showMenu">
@@ -61,29 +61,28 @@
           />
         </div>
         <p class="footer__text">
-          Stay updated with the latest from Fokus Network. Follow us on social
-          media or contact us directly for any inquiries.
+          {{ $t("landing.footer.logoDesc") }}
         </p>
       </div>
       <div class="col-4">
-        <h3>Links</h3>
+        <h3>{{ $t("landing.footer.links") }}</h3>
         <ul class="footer__links">
-          <li>About us</li>
-          <li>How its work</li>
-          <li>Testimonials</li>
-          <li>Contact us</li>
+          <li>{{ $t("landing.footer.aboutUs") }}</li>
+          <li>{{ $t("landing.footer.howItWorks")}}</li>
+          <li>{{ $t("landing.footer.testimonials")}}</li>
+          <li>{{ $t("landing.footer.contactUs")}}</li>
         </ul>
       </div>
       <div class="col-4">
-        <h3>Legal information</h3>
+        <h3>{{ $t("landing.footer.legalInformation") }}</h3>
         <ul class="footer__links">
-          <li>Privacy Policy</li>
-          <li>Cookies</li>
-          <li>FAQs</li>
+          <li>{{ $t("landing.footer.privacyPolicy") }}</li>
+          <li>{{ $t("landing.footer.cookies") }}</li>
+          <li>{{ $t("landing.footer.faqs") }}</li>
         </ul>
       </div>
       <div class="col-4">
-        <h3>Get in Touch</h3>
+        <h3>{{ $t("landing.footer.getInTouch") }}</h3>
         <ul class="footer__links">
           <li>
             <a href="mailto:support@fokusnetwork.com"
@@ -112,7 +111,7 @@ import router from "../router";
 import { useAuthStore } from "../store";
 import { useI18n } from "vue-i18n";
 import Cookies from "js-cookie";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const authStore = useAuthStore();
 const i18nLocale = useI18n();
@@ -145,8 +144,6 @@ const showMenu = () => {
 const hideMenu = () => {
   isVisible.value = false;
 };
-
-
 </script>
 
 <style lang="scss" scoped>

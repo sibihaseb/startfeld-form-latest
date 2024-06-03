@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import deauth from '../locales/de/auth.json';
 import deadmin from '../locales/de/admin.json';
 import devalidation from '../locales/de/validation_messages.json';
-import delanding from '../locales/en/landing.json';
+import delanding from '../locales/de/landing.json';
 import delayout from '../locales/de/layout.json';
 import dewizard from '../locales/de/wizard.json';
 

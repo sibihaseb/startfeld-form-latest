@@ -1,4 +1,8 @@
 {
+        "header": {
+            "signIn": "Sign In",
+            "signUp": "Sign Up"
+        },
         "heroSection": {
             "empower": "Empower Digital Innovation with Focus Groups",
             "description": "Join the leading platform for conducting and participating in focus groups on digital products. Whether you're a researcher seeking valuable insights or a participant eager to share your opinions, Fokus Network connects you to the right opportunities.",
@@ -48,5 +52,18 @@
         "subscribe": {
             "title": "Ready to Dive In?",
             "btn": "Subscribe"
+        },
+        "footer":{
+            "logoDesc":"Stay updated with the latest from Fokus Network. Follow us on social media or contact us directly for any inquiries.",
+            "links":"Links",
+            "aboutUs":"About us",
+            "howItWorks":"How its work",
+            "testimonials":"Testimonials",
+            "ContactUs":"Contact us",
+            "legalInformation":"Legal information",
+            "privacyPolicy":"Privacy Policy",
+            "cookies":"Cookies",
+            "FAQs":"FAQs",
+            "getInTouch":"Get in Touch"
         }
 }
