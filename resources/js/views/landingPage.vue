@@ -104,7 +104,9 @@
               <img src="../assets/images/user-1.jpg" alt="" />
             </div>
             <div class="user__info">
-              <h3 class="username">{{ $t("landing.reviews.comment.username1") }}</h3>
+              <h3 class="username">
+                {{ $t("landing.reviews.comment.username1") }}
+              </h3>
               <small>{{ $t("landing.reviews.comment.designation1") }}</small>
             </div>
           </div>
@@ -113,7 +115,9 @@
               <img src="../assets/images/user-02.jpg" alt="" />
             </div>
             <div class="user__info">
-              <h3 class="username">{{ $t("landing.reviews.comment.username2") }}</h3>
+              <h3 class="username">
+                {{ $t("landing.reviews.comment.username2") }}
+              </h3>
               <small>{{ $t("landing.reviews.comment.designation2") }}</small>
             </div>
           </div>
@@ -122,7 +126,9 @@
               <img src="../assets/images/user-03.jpg" alt="" />
             </div>
             <div class="user__info">
-              <h3 class="username">{{ $t("landing.reviews.comment.username3") }}</h3>
+              <h3 class="username">
+                {{ $t("landing.reviews.comment.username3") }}
+              </h3>
               <small>{{ $t("landing.reviews.comment.designation3") }}</small>
             </div>
           </div>
@@ -131,11 +137,11 @@
           <div class="comment__title">
             <h2>{{ $t("landing.reviews.comment.title1") }}</h2>
             <span>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i
-              ><i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                <i class="ri-star-fill" style="color: #ffd43b"></i>
+                <i class="ri-star-fill" style="color: #ffd43b"></i>
+                <i class="ri-star-fill" style="color: #ffd43b"></i>
+                <i class="ri-star-fill" style="color: #ffd43b"></i>
+                <i class="ri-star-fill" style="color: #ffd43b"></i>
             </span>
             <small>{{ $t("landing.reviews.comment.body1") }}</small>
           </div>
@@ -146,7 +152,59 @@
 
   <div class="faqs">
     <h1>{{ $t("landing.faqs.title") }}</h1>
-    <div class="faqs__accordin"></div>
+    <div class="faqs__accordin">
+      <div class="demo-collapse">
+        <el-collapse v-model="activeNames" @change="handleChange" style="
+    font-family: 'GraphikRegular';">
+          <el-collapse-item title="Consistency" name="1">
+            <div>
+              Consistent with real life: in line with the process and logic of
+              real life, and comply with languages and habits that the users are
+              used to;
+            </div>
+            <div>
+              Consistent within interface: all elements should be consistent,
+              such as: design style, icons and texts, position of elements, etc.
+            </div>
+          </el-collapse-item>
+          <el-collapse-item title="Feedback" name="2">
+            <div>
+              Operation feedback: enable the users to clearly perceive their
+              operations by style updates and interactive effects;
+            </div>
+            <div>
+              Visual feedback: reflect current state by updating or rearranging
+              elements of the page.
+            </div>
+          </el-collapse-item>
+          <el-collapse-item title="Efficiency" name="3">
+            <div>
+              Simplify the process: keep operating process simple and intuitive;
+            </div>
+            <div>
+              Definite and clear: enunciate your intentions clearly so that the
+              users can quickly understand and make decisions;
+            </div>
+            <div>
+              Easy to identify: the interface should be straightforward, which
+              helps the users to identify and frees them from memorizing and
+              recalling.
+            </div>
+          </el-collapse-item>
+          <el-collapse-item title="Controllability" name="4">
+            <div>
+              Decision making: giving advices about operations is acceptable,
+              but do not make decisions for the users;
+            </div>
+            <div>
+              Controlled consequences: users should be granted the freedom to
+              operate, including canceling, aborting or terminating current
+              operation.
+            </div>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+    </div>
     <button class="custom-btn">{{ $t("landing.faqs.btn") }}</button>
   </div>
 
@@ -156,7 +214,9 @@
       <form>
         <div class="form__data">
           <input type="text" placeholder="Enter your email" />
-          <button class="subscribe-btn active" type="submit">{{ $t("landing.subscribe.btn") }}</button>
+          <button class="subscribe-btn active" type="submit">
+            {{ $t("landing.subscribe.btn") }}
+          </button>
         </div>
       </form>
     </div>
@@ -165,6 +225,12 @@
 
 <script setup lang="ts" name="landing">
 import { useI18n } from "vue-i18n";
+import { ref } from "vue";
 
 const { t } = useI18n();
+
+const activeNames = ref(["1"]);
+const handleChange = (val: string[]) => {
+  console.log(val);
+};
 </script>

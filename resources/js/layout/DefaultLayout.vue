@@ -10,7 +10,7 @@
           :class="{ hidden: !isVisible, visible: isVisible }"
         >
           <div class="cancel" @click="hideMenu">
-            <i class="fa-solid fa-xmark"></i>
+           <i class="ri-close-fill"></i>
           </div>
           <div class="dropdown__language">
             <div class="dropdown">

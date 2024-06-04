@@ -2,30 +2,24 @@
   <div class="main-view">
     <div class="layout_margin">
       <div class="mb-4">
-        <el-button type="primary" @click="toggleFormSection">Add Section</el-button>
-
+        <el-button type="primary" @click="toggleFormSection">Add Questions</el-button>
+        <div>
+          <p>
+            Submitted Section : {{ submittedSections }}
+          </p>
+        </div>
         <div v-if="isVisible">
           <div class="section">
-            <form-build
+            <add-field
               :section="currentSection"
+              :step="submittedSections"
               @cancel="toggleFormSection"
               @submit="onSubmit"
-            ></form-build>
+            ></add-field>
           </div>
         </div>
-        <div>
-          <h3>Submitted Sections</h3>
-          <ul>
-            <li
-              v-for="(section, index) in submittedSections"
-              :key="index"
-              @click="showSection(index)"
-            >
-              Section {{ index + 1 }}
-            </li>
-          </ul>
-        </div>
 
+        <display-form :section="submittedSections"></display-form>
       </div>
     </div>
   </div>
@@ -34,14 +28,32 @@
 <script setup lang="ts">
 import formBuild from "@/components/formBuild.vue";
 import { ref } from "vue";
+import addField from "@/components/addField.vue"; // Import the displayForm component
 
-const isVisible = ref(false);
-const currentSection = ref<Section>({ title: "", type: "", description: "" });
 interface Section {
   title: string;
   type: string;
   description: string;
+  step: string;
+  options: string;
+  minValue: string;
+  maxValue: string;
+  dateFormat: string;
+  protocol: string;
 }
+
+const isVisible = ref(false);
+const currentSection = ref<Section>({
+  title: "",
+  description: "",
+  type: "",
+  step: "",
+  options: "",
+  minValue: "",
+  maxValue: "",
+  dateFormat: "",
+  protocol: "",
+});
 const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
 };
@@ -57,6 +69,7 @@ const onSubmit = (form: Section) => {
 const showSection = (index: number) => {
   console.log("Clicked on section:", index);
   currentSection.value = submittedSections.value[index];
+  isVisible.value = !isVisible.value;
   console.log("Current section:", currentSection.value);
 };
 </script>
