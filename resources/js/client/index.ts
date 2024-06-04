@@ -16,7 +16,8 @@ export type { ApplicantProfile } from './models/ApplicantProfile'
 export type { TeamMemberProfile } from './models/teamMember'
 export type { ApplicationStatus } from './models/ApplicationStatus'
 export type { ApplicantTable } from './models/ApplicantTable'
-export type { AdminPrivateNote } from './models/AdminPrivateNote'
+export type { AdminPrivateNote } from './models/AdminPrivateNote';
+export type { QuestionCreate } from './models/QuestionCreate';
 export { ApplicantCurrentStatus } from './models/ApplicantCurrentStatus'
 export { ApplicationStatusType } from './models/ApplicationStatusType'
 export { authService } from './services/authService'

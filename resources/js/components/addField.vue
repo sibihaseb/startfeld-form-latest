@@ -1,6 +1,4 @@
 <template>
-  <h4>{{ submittedSections }}</h4>
-
   <div class="applicant">
     <el-form :model="form" label-width="auto">
       <el-form-item label="Title">
@@ -10,11 +8,7 @@
         <el-input v-model="form.description" />
       </el-form-item>
       <el-form-item label="Type">
-        <el-select
-          v-model="form.type"
-          placeholder="Please select field type"
-          @change="handleTypeChange"
-        >
+        <el-select v-model="form.type" placeholder="Please select field type">
           <el-option label="Text" value="text" />
           <el-option label="Radio" value="radio" />
           <el-option label="Checkbox" value="checkbox" />
@@ -24,23 +18,18 @@
           <el-option label="URL" value="url" />
         </el-select>
       </el-form-item>
-  <!-- <el-form-item label="Steps">
-    <el-select v-model="currentStep" placeholder="Please select steps">
-      <el-option
-        v-for="(section, index) in props.step"
-        :key="index"
-        :label="`Step ${index + 1}`"  :value="section.step || index + 1"  />
-    </el-select>
-  </el-form-item> -->
-<el-form-item label="Steps">
-    <el-select v-model="currentStep" placeholder="Please select steps">
-      <el-option
-        v-for="(section, index) in props.step"
-        :key="index"
-        :label="index === 0 ? 'Step 1' : `Step ${index + 1}`"  :value="section.step || index + 1"
-      />
-    </el-select>
-  </el-form-item>
+
+      <el-form-item label="Steps">
+        <el-select v-model="currentStep" placeholder="Please select steps">
+          <el-option
+            v-for="(section , index) in props.step"
+            :key="index"
+            :label="index === 0 ? 'Step 1' : `Step ${index + 1}`"
+            :value="section.step !== undefined ? section.step : index + 1"
+          />
+        </el-select>
+      </el-form-item>
+
 
       <!-- Additional fields based on selected type -->
       <template v-if="form.type === 'radio' || form.type === 'checkbox'">
@@ -84,14 +73,14 @@
         <el-button @click="cancelSection">Cancel</el-button>
       </el-form-item>
     </el-form>
-    <h4>{{ currentSection }}</h4>
   </div>
 </template>
 
 <script setup lang="ts" name="addField">
 import { reactive } from "vue";
 import { defineProps, defineEmits } from "vue";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
+import type { QuestionCreate } from "../client/index";
 
 const emit = defineEmits();
 const dateTime = ref("");
@@ -101,25 +90,20 @@ const props = defineProps({
   step: Array,
   stepOptions: Array,
 });
-console.log(props.step); // this works
+console.log(props.step);
 
-const form = reactive({
+const form: Ref<QuestionCreate> = ref({
   title: "",
   description: "",
   type: "",
   step: "",
-  options: "",
-  minValue: "",
-  maxValue: "",
-  dateFormat: "",
-  protocol: "",
 });
-
 const cancelSection = () => {
   emit("cancel");
 };
-let initialSubmissions = ref(2);
-const currentStep = ref(1);
+let initialSubmissions = ref<number>(2);
+const currentStep = ref<number>(1);
+
 const onSubmit = () => {
   console.log("submit!");
   emit("submit", form);
@@ -128,14 +112,5 @@ const onSubmit = () => {
   } else {
     currentStep.value++; // Increment step for subsequent submissions
   }
-};
-
-const handleTypeChange = () => {
-  // Reset additional fields when type changes
-  form.options = "";
-  form.minValue = "";
-  form.maxValue = "";
-  form.dateFormat = "";
-  form.protocol = "";
 };
 </script>
