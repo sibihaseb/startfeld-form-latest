@@ -2,23 +2,19 @@
   <div class="applicant">
     <el-form :model="form" label-width="auto">
       <el-form-item label="Title">
-        <el-input v-model="form.title" />
+        <el-input v-model="form.title.nme" />
       </el-form-item>
       <el-form-item label="Description">
-        <el-input v-model="form.description" />
+        <el-input v-model="form.description.name" />
       </el-form-item>
       <el-form-item label="Type">
-        <el-select
-          v-model="form.answer_type"
-          placeholder="Please select field type"
-        >
-          <el-option label="Text" value="text" />
-          <el-option label="Radio" value="radio" />
-          <el-option label="Checkbox" value="checkbox" />
-          <el-option label="Number" value="number" />
-          <el-option label="Email" value="email" />
-          <el-option label="Date" value="date" />
-          <el-option label="URL" value="url" />
+        <el-select v-model="form.answer_type" placeholder="Please select field type">
+          <el-option
+            v-for="(type, index) in QuestionAnswerType"
+            :key="index"
+            :label="type"
+            :value="type"
+          />
         </el-select>
       </el-form-item>
 
@@ -34,55 +30,13 @@
       </el-form-item>
 
       <el-form-item label="Is Mandatory">
-        <el-radio-group
-          v-model="form.is_mandatory"
-          id="isMandatory"
-          class="ml-4"
-        >
+        <el-radio-group v-model="form.is_mandatory" id="isMandatory" class="ml-4">
           <el-radio :label="true">True</el-radio>
           <el-radio :label="false">False</el-radio>
         </el-radio-group>
       </el-form-item>
 
       <!-- Additional fields based on selected type -->
-      <template
-        v-if="form.answer_type === 'radio' || form.answer_type === 'checkbox'"
-      >
-        <el-form-item label="Options">
-          <el-input
-            v-model="form.options"
-            placeholder="Enter options separated by commas"
-          />
-        </el-form-item>
-      </template>
-      <template v-if="form.answer_type === 'number'">
-        <el-form-item label="Min Value">
-          <el-input v-model="form.minValue" placeholder="Enter minimum value" />
-        </el-form-item>
-        <el-form-item label="Max Value">
-          <el-input v-model="form.maxValue" placeholder="Enter maximum value" />
-        </el-form-item>
-      </template>
-      <template v-if="form.answer_type === 'date'">
-        <el-form-item label="Date Format">
-          <div class="demo-datetime-picker">
-            <div class="block">
-              <el-date-picker
-                v-model="dateTime"
-                type="datetime"
-                placeholder="Pick a Date"
-                format="YYYY/MM/DD HH:mm:ss"
-              />
-            </div>
-          </div>
-        </el-form-item>
-      </template>
-      <template v-if="form.answer_type === 'url'">
-        <el-form-item label="Protocol">
-          <el-input v-model="form.protocol" placeholder="Enter protocol" />
-        </el-form-item>
-      </template>
-
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Save</el-button>
         <el-button @click="cancelSection">Cancel</el-button>
@@ -92,19 +46,30 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { ref,Ref } from "vue";
+import { ref, Ref } from "vue";
 import { defineProps } from "vue";
 import type { QuestionCreate } from "../client/index";
+import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 
-const props = defineProps<{ step: any[] }>();
+const props = defineProps<{
+  step: number;
+  sort_order: number;
+}>();
 const emit = defineEmits();
 const dateTime = ref("");
-const form : Ref<QuestionCreate> = ref({
-  title: "",
-  description: "",
-  answer_type: "",
-  step: "",
-  is_mandatory: true,
+const form: Ref<QuestionCreate> = ref({
+  step: props.step,
+  sort_order: props.sort_order,
+  title: {
+    value: "",
+    name: { en: "" },
+  },
+  description: {
+    value: "",
+    name: { en: "" },
+  },
+  answer_type: QuestionAnswerType.title,
+  is_mandatory: false,
 });
 const cancelSection = () => {
   emit("cancel");

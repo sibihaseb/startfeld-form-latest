@@ -8,16 +8,13 @@ import type { QuestionOptions } from './QuestionOptions';
 import { QuestionTranslated } from './QuestionTranslated';
 
 export type QuestionCreate = {
-    title: string;
-    description: string;
-    answer_type: string;
-    step: any;
+    step: number;
+    sort_order: number;
+    title: QuestionTranslated;
+    description: QuestionTranslated,
+    is_hidden?: boolean;
     is_mandatory: boolean;
-    sort_order?: number;
-    options?: string;
-    minValue?: BigInteger;
-    maxValue?: BigInteger;
-    dateFormat?: Date;
-    protocol?: URL;
+    answer_type: QuestionAnswerType;
+    options?: QuestionOptions;
 };
 

@@ -1,41 +1,57 @@
 <template>
   <div class="main-view">
     <div v-if="allQuestions.length > 0" class="form__wizard">
-    <div class="wizard-header">
-      <el-steps
-        :active="WizardProgressTracker.activeStepNo"
-        class="steps"
-        finish-status="success"
+      <div class="wizard-header">
+        <el-steps
+          :active="WizardProgressTracker.activeStepNo"
+          class="steps"
+          finish-status="success"
+          v-if="
+            (WizardProgressTracker.errorStep && wizardState.flag === '') ||
+            wizardState.flag === 'started' ||
+            wizardState.flag === 'edit' ||
+            wizardState.flag === 'view'
+          "
+        >
+          <el-step
+            class="wizard-step"
+            v-for="(step, index) in WizardProgressTracker.errorStep"
+            :key="index"
+            :status="step.status"
+            :title="step.status"
+            :active="index"
+            :class="step.status === 'error' ? step.status : ''"
+            @click="jumpToStep(index)"
+          />
+        </el-steps>
+      </div>
+      <div
+        class="wizard"
         v-if="
-          (WizardProgressTracker.errorStep && wizardState.flag === '') ||
+          wizardState.flag === '' ||
           wizardState.flag === 'started' ||
           wizardState.flag === 'edit' ||
-          wizardState.flag === 'view'">
-        <el-step
-          class="wizard-step"
-          v-for="(step, index) in WizardProgressTracker.errorStep"
-          :key="index"
-          :status="step.status"
-          :title="step.status"
-          :active="index"
-          :class="step.status === 'error' ? step.status : ''"
-          @click="jumpToStep(index)"/>
-      </el-steps>
-    </div>
-    <div class="wizard" v-if="wizardState.flag === '' || wizardState.flag === 'started' || wizardState.flag === 'edit' || wizardState.flag === 'view'">
-      <div class="mail-msg box" v-if="wizardState.successMsg && applicantStore.applicantToken">
-        <span class="space-bottom">{{ wizardState.successMsg }}</span>
-        <span>{{ $t("wizard.mainContactDetail.titleToken") + " : " }}
-          <a class="link" :href="SITEURL + '/' + applicantStore.applicantToken">{{ SITEURL + "/" + applicantStore.applicantToken }}</a>
-        </span>
-      </div>
-
-      <div class="questions" v-for="question in singleStep" :key="question.id">
-        <div v-if="question.answer_type === QuestionAnswerType.title">
-          <h3>{{ i18nLocale.locale.value === "de" ? question.title.name.de : question.title.name.en }}</h3>
-          <p>{{i18nLocale.locale.value === "de"? question.description?.name.de: question.description?.name.en}}</p>
-        </div>
-        <div v-else-if="question.answer_type === QuestionAnswerType.key">
+          wizardState.flag === 'view'
+        "
+      >
+        <div class="questions" v-for="question in singleStep" :key="question.id">
+          <div v-if="question.answer_type === QuestionAnswerType.title">
+            <h3>
+              {{
+                i18nLocale.locale.value === "de"
+                  ? question.title.name.de
+                  : question.title.name.en
+              }}
+            </h3>
+            <p>
+              {{
+                i18nLocale.locale.value === "de"
+                  ? question.description?.name.de
+                  : question.description?.name.en
+              }}
+            </p>
+          </div>
+          <!-- <div v-else-if="question.answer_type === QuestionAnswerType.key">
           <applicant
             :disable="wizardState.disable"
             :saveProfile="applicantProfileData"
@@ -58,167 +74,325 @@
               </el-button>
             </div>
           </div>
+        </div> -->
+          <div v-else>
+            <el-form
+              require-asterisk-position="right"
+              label-position="top"
+              :model="allAnswer"
+              ref="wizardFormRef"
+              class="wizard-form"
+              @submit.prevent="false"
+            >
+              <el-form-item
+                v-if="
+                  (!question.is_hidden &&
+                    question.answer_type === QuestionAnswerType.text) ||
+                  question.answer_type === QuestionAnswerType.number ||
+                  question.answer_type === QuestionAnswerType.textarea
+                "
+                :label="
+                  i18nLocale.locale.value === 'de'
+                    ? question.title.name.de
+                    : question.title.name.en
+                "
+              >
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+                <el-input
+                  :disabled="wizardState.disable"
+                  :placeholder="
+                    i18nLocale.locale.value === 'de'
+                      ? question.title.name.de
+                      : question.title.name.en
+                  "
+                  :type="question.answer_type"
+                  v-model="allAnswer[question.id].value"
+                />
+                <div
+                  class="el-form-item__error"
+                  v-for="error in wizardValidator$.$errors"
+                  :key="error.$uid"
+                >
+                  <span v-if="error.$uid === question.id + '.value-required'">{{
+                    error.$message
+                  }}</span>
+                  <span v-if="error.$uid === question.id + '.value-maxLength'">{{
+                    error.$message
+                  }}</span>
+                </div>
+              </el-form-item>
+
+              <el-form-item
+                v-if="
+                  !question.is_hidden &&
+                  question.answer_type === QuestionAnswerType.date &&
+                  allAnswer[7].value !== 'Company is not yet Founded'
+                "
+                :label="
+                  i18nLocale.locale.value === 'de'
+                    ? question.title.name.de
+                    : question.title.name.en
+                "
+              >
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+                <el-date-picker
+                  :disabled="wizardState.disable"
+                  :placeholder="
+                    i18nLocale.locale.value === 'de'
+                      ? question.title.name.de
+                      : question.title.name.en
+                  "
+                  v-model="allAnswer[question.id].value"
+                />
+                <div
+                  class="el-form-item__error"
+                  v-for="error in wizardValidator$.$errors"
+                  :key="error.$uid"
+                >
+                  <span v-if="error.$uid === question.id + '.value-required'">{{
+                    error.$message
+                  }}</span>
+                </div>
+              </el-form-item>
+
+              <el-form-item
+                v-if="
+                  !question.is_hidden &&
+                  question.answer_type === QuestionAnswerType.checkbox
+                "
+                :label="
+                  i18nLocale.locale.value === 'de'
+                    ? question.title.name.de
+                    : question.title.name.en
+                "
+              >
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+                <el-checkbox-group
+                  v-model="allAnswer[question.id].value"
+                  :disabled="wizardState.disable"
+                >
+                  <el-checkbox
+                    class="custom-checkbox-btn"
+                    v-for="option in question.options?.values"
+                    :key="option.value"
+                    :label="option.value"
+                  >
+                    {{
+                      i18nLocale.locale.value === "de" ? option.name.de : option.name.en
+                    }}</el-checkbox
+                  >
+                </el-checkbox-group>
+                <div
+                  class="el-form-item__error"
+                  v-for="error in wizardValidator$.$errors"
+                  :key="error.$uid"
+                >
+                  <span v-if="error.$uid === question.id + '.value-required'">{{
+                    error.$message
+                  }}</span>
+                </div>
+              </el-form-item>
+
+              <el-form-item
+                v-if="
+                  !question.is_hidden && question.answer_type === QuestionAnswerType.radio
+                "
+                :label="
+                  i18nLocale.locale.value === 'de'
+                    ? question.title.name.de
+                    : question.title.name.en
+                "
+              >
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+                <el-radio-group
+                  v-model="allAnswer[question.id].value"
+                  @change="verifymodel"
+                  :disabled="wizardState.disable"
+                >
+                  <el-radio
+                    v-for="option in question.options?.values"
+                    :key="option.value"
+                    :label="option.value"
+                    >{{
+                      i18nLocale.locale.value === "de" ? option.name.de : option.name.en
+                    }}</el-radio
+                  >
+                </el-radio-group>
+                <el-input
+                  :disabled="wizardState.disable"
+                  v-if="allAnswer[question.id].value === 'other'"
+                  v-model="allAnswer[question.id].other"
+                  type="textarea"
+                />
+                <div
+                  class="el-form-item__error"
+                  v-for="error in wizardValidator$.$errors"
+                  :key="error.$uid"
+                >
+                  <span v-if="error.$uid === question.id + '.value-required'">{{
+                    error.$message
+                  }}</span>
+                </div>
+              </el-form-item>
+
+              <el-form-item
+                v-if="
+                  !question.is_hidden &&
+                  question.answer_type === QuestionAnswerType.dropdown
+                "
+                :label="
+                  i18nLocale.locale.value === 'de'
+                    ? question.title.name.de
+                    : question.title.name.en
+                "
+              >
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+                <el-select
+                  :disabled="wizardState.disable"
+                  v-model="allAnswer[question.id].value"
+                  :placeholder="
+                    i18nLocale.locale.value === 'de'
+                      ? question.title.name.de
+                      : question.title.name.en
+                  "
+                >
+                  <el-option
+                    v-for="option in question.options?.values"
+                    :key="option.value"
+                    :label="
+                      i18nLocale.locale.value === 'de' ? option.name.de : option.name.en
+                    "
+                    :value="option.value"
+                  />
+                </el-select>
+                <div
+                  class="el-form-item__error"
+                  v-for="error in wizardValidator$.$errors"
+                  :key="error.$uid"
+                >
+                  <span v-if="error.$uid === question.id + '.value-required'">{{
+                    error.$message
+                  }}</span>
+                </div>
+              </el-form-item>
+
+              <file-upload
+                v-if="
+                  !question.is_hidden && question.answer_type === QuestionAnswerType.file
+                "
+                :question="question"
+                :disable="wizardState.disable"
+                :answerValue="allAnswer[question.id].value"
+                @file-submitted="saveFileToAnswers"
+              ></file-upload>
+            </el-form>
+          </div>
         </div>
-        <div v-else>
-          <el-form require-asterisk-position="right" label-position="top" :model="allAnswer" ref="wizardFormRef" class="wizard-form" @submit.prevent="false">
 
-            <el-form-item v-if="!question.is_hidden && question.answer_type === QuestionAnswerType.text || question.answer_type === QuestionAnswerType.number ||  question.answer_type === QuestionAnswerType.textarea"
-              :label="i18nLocale.locale.value === 'de' ? question.title.name.de : question.title.name.en">
-              <p v-if="question.description">
-                {{i18nLocale.locale.value === "de"? question.description.name.de: question.description.name.en}}</p>
+        <div
+          class="private-note"
+          v-if="route.name === 'application_view' || route.name === 'application_edit'"
+        >
+          <el-form label-position="top">
+            <el-form-item
+              label="Private Note"
+              v-if="adminNotes[WizardProgressTracker.activeStepNo]"
+            >
+              <label class="private-note-text">{{
+                $t("wizard.layout.privateNotelableText")
+              }}</label>
               <el-input
-                :disabled="wizardState.disable"
-                :placeholder="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en"
-                :type="question.answer_type"
-                v-model="allAnswer[question.id].value"/>
-              <div class="el-form-item__error" v-for="error in wizardValidator$.$errors" :key="error.$uid">
-                <span v-if="error.$uid === question.id + '.value-required'">{{error.$message}}</span>
-                <span v-if="error.$uid === question.id + '.value-maxLength'">{{error.$message}}</span>
-              </div>
+                type="textarea"
+                v-model="adminNotes[WizardProgressTracker.activeStepNo].value"
+              />
             </el-form-item>
-
-            <el-form-item
-              v-if="!question.is_hidden && question.answer_type === QuestionAnswerType.date && allAnswer[7].value !== 'Company is not yet Founded'"
-              :label="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en">
-              <p v-if="question.description">
-                {{i18nLocale.locale.value === "de"? question.description.name.de: question.description.name.en}}</p>
-              <el-date-picker
-                :disabled="wizardState.disable"
-                :placeholder="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en"
-                v-model="allAnswer[question.id].value"/>
-              <div class="el-form-item__error" v-for="error in wizardValidator$.$errors" :key="error.$uid">
-                <span v-if="error.$uid === question.id + '.value-required'">{{error.$message}}</span>
-              </div>
-            </el-form-item>
-
-            <el-form-item
-              v-if="!question.is_hidden &&question.answer_type === QuestionAnswerType.checkbox"
-              :label="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en">
-              <p v-if="question.description">
-                {{i18nLocale.locale.value === "de"? question.description.name.de: question.description.name.en}}</p>
-              <el-checkbox-group v-model="allAnswer[question.id].value" :disabled="wizardState.disable">
-                <el-checkbox
-                  class="custom-checkbox-btn"
-                  v-for="option in question.options?.values"
-                  :key="option.value"
-                  :label="option.value">
-                  {{i18nLocale.locale.value === "de" ? option.name.de : option.name.en}}</el-checkbox>
-              </el-checkbox-group>
-              <div class="el-form-item__error" v-for="error in wizardValidator$.$errors" :key="error.$uid">
-                <span v-if="error.$uid === question.id + '.value-required'">{{error.$message}}</span>
-              </div>
-            </el-form-item>
-
-            <el-form-item
-              v-if="!question.is_hidden && question.answer_type === QuestionAnswerType.radio"
-              :label="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en">
-              <p v-if="question.description">
-                {{i18nLocale.locale.value === "de"? question.description.name.de: question.description.name.en}}</p>
-              <el-radio-group
-                v-model="allAnswer[question.id].value"
-                @change="verifymodel"
-                :disabled="wizardState.disable">
-                <el-radio
-                  v-for="option in question.options?.values"
-                  :key="option.value"
-                  :label="option.value"
-                  >{{i18nLocale.locale.value === "de" ? option.name.de : option.name.en}}</el-radio>
-              </el-radio-group>
-              <el-input
-                :disabled="wizardState.disable"
-                v-if="allAnswer[question.id].value === 'other'"
-                v-model="allAnswer[question.id].other"
-                type="textarea"/>
-              <div class="el-form-item__error" v-for="error in wizardValidator$.$errors" :key="error.$uid">
-                <span v-if="error.$uid === question.id + '.value-required'">{{error.$message}}</span>
-              </div>
-            </el-form-item>
-
-            <el-form-item
-              v-if="!question.is_hidden &&question.answer_type === QuestionAnswerType.dropdown"
-              :label="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en">
-              <p v-if="question.description">
-                {{i18nLocale.locale.value === "de"? question.description.name.de: question.description.name.en}}</p>
-              <el-select
-                :disabled="wizardState.disable"
-                v-model="allAnswer[question.id].value"
-                :placeholder="i18nLocale.locale.value === 'de'? question.title.name.de: question.title.name.en">
-                <el-option
-                  v-for="option in question.options?.values"
-                  :key="option.value"
-                  :label="i18nLocale.locale.value === 'de' ? option.name.de : option.name.en"
-                  :value="option.value"/>
-              </el-select>
-              <div class="el-form-item__error" v-for="error in wizardValidator$.$errors" :key="error.$uid" >
-                <span v-if="error.$uid === question.id + '.value-required'">{{error.$message}}</span>
-              </div>
-            </el-form-item>
-
-            <file-upload
-            v-if="!question.is_hidden && question.answer_type === QuestionAnswerType.file"
-             :question="question" :disable="wizardState.disable" :answerValue="allAnswer[question.id].value"
-             @file-submitted="saveFileToAnswers"></file-upload>
           </el-form>
         </div>
-      </div>
-
-      <div class="private-note" v-if="route.name === 'application_view' || route.name === 'application_edit'" >
-        <el-form label-position="top">
-          <el-form-item label="Private Note" v-if="adminNotes[WizardProgressTracker.activeStepNo]" >
-            <label class="private-note-text">{{ $t("wizard.layout.privateNotelableText") }}</label>
-            <el-input type="textarea" v-model="adminNotes[WizardProgressTracker.activeStepNo].value" />
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="next-step">
-        <el-button
-          size="large"
-          v-show="WizardProgressTracker.activeStepNo + 1 < WizardProgressTracker.totalStep"
-          type="primary"
-          :disabled="wizardState.loading"
-          :loading="wizardState.loading"
-          @click="wizardFormSubmit('forward')">{{ $t("wizard.layout.labelButtonNext") }}</el-button>
-        <div
-          class="submit-save-action"
-          v-show="WizardProgressTracker.activeStepNo + 1 === WizardProgressTracker.totalStep &&route.name === 'wizard'">
-          <el-button size="large" class="space-left-action-bt" type="primary"
-            :disabled="wizardState.loading"
-            :loading="wizardState.loading"
-            @click="wizardFormSubmit('save')">{{ $t("wizard.layout.labelButtonSave") }}</el-button>
+        <div class="next-step">
           <el-button
             size="large"
+            v-show="
+              WizardProgressTracker.activeStepNo + 1 < WizardProgressTracker.totalStep
+            "
             type="primary"
             :disabled="wizardState.loading"
             :loading="wizardState.loading"
-            @click="wizardFormSubmit('submitted')">{{ $t("wizard.layout.labelButtonSubmit") }}</el-button>
-        </div>
-        <div v-show=" WizardProgressTracker.activeStepNo + 1 === WizardProgressTracker.totalStep && route.name !== 'wizard' ">
-          <el-button size="large" class="accept-bt" type="primary"
-            :disabled="wizardState.loading"
-            :loading="wizardState.loading"
-            @click="applicationUpdate(ApplicationStatusType.accepted)">{{ $t("wizard.layout.labelButtonAccept") }}</el-button>
+            @click="wizardFormSubmit('forward')"
+            >{{ $t("wizard.layout.labelButtonNext") }}</el-button
+          >
+          <div
+            class="submit-save-action"
+            v-show="
+              WizardProgressTracker.activeStepNo + 1 ===
+                WizardProgressTracker.totalStep && route.name === 'wizard'
+            "
+          >
+            <el-button
+              size="large"
+              class="space-left-action-bt"
+              type="primary"
+              :disabled="wizardState.loading"
+              :loading="wizardState.loading"
+              @click="wizardFormSubmit('save')"
+              >{{ $t("wizard.layout.labelButtonSave") }}</el-button
+            >
+            <el-button
+              size="large"
+              type="primary"
+              :disabled="wizardState.loading"
+              :loading="wizardState.loading"
+              @click="wizardFormSubmit('submitted')"
+              >{{ $t("wizard.layout.labelButtonSubmit") }}</el-button
+            >
+          </div>
           <el-button
+            v-show="WizardProgressTracker.activeStepNo > 0"
             size="large"
-            class="reject-bt"
             type="primary"
-            :disabled="wizardState.loading"
-            :loading="wizardState.loading"
-            @click="applicationUpdate(ApplicationStatusType.rejected)">{{ $t("wizard.layout.labelButtonReject") }}</el-button>
+            @click="wizardFormSubmit('back')"
+            >{{ $t("wizard.layout.labelButtonBack") }}</el-button
+          >
         </div>
-        <el-button
-          v-show="WizardProgressTracker.activeStepNo > 0" size="large" type="primary"
-          @click="wizardFormSubmit('back')">{{ $t("wizard.layout.labelButtonBack") }}</el-button>
       </div>
-    </div>
-    <div v-else>
-      <div class="form-submitted">
-        <i class="ri-checkbox-circle-line ri-10x success"></i>
-        <h3>{{ $t("wizard.layout.formSubmittedSuccessMessage") }}</h3>
+      <div v-else>
+        <div class="form-submitted">
+          <i class="ri-checkbox-circle-line ri-10x success"></i>
+          <h3>{{ $t("wizard.layout.formSubmittedSuccessMessage") }}</h3>
+        </div>
       </div>
-    </div>
     </div>
     <div v-else class="form-submitted">
-        <h2>{{ $t("wizard.layout.noQuestionWizard") }}</h2>
+      <h2>{{ $t("wizard.layout.noQuestionWizard") }}</h2>
     </div>
   </div>
 </template>
@@ -228,11 +402,17 @@ import { computed, onMounted, reactive, ref } from "vue";
 import type { Ref } from "vue";
 import { applicationService, ApplicationStatusType } from "../client";
 import type { ApplicantProfile, ApplicationStatus } from "../client";
-import type { Question, QuestionAnswer, StepDetailProcess, TeamMemberProfile, AdminPrivateNote} from "../client";
+import type {
+  Question,
+  QuestionAnswer,
+  StepDetailProcess,
+  TeamMemberProfile,
+  AdminPrivateNote,
+} from "../client";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 import { ApplicantCurrentStatus } from "../client/models/ApplicantCurrentStatus";
 import { wizardService } from "../client/services/wizardService";
-import { wizardHelper } from '../client/helper/wizardHelper'
+import { wizardHelper } from "../client/helper/wizardHelper";
 import applicant from "@/components/applicant.vue";
 import teamMemberComponent from "@/components/teamMember.vue";
 import fileUpload from "@/components/fileUpload.vue";
@@ -328,8 +508,8 @@ const props = defineProps({
     type: Boolean,
   },
   questions: {
-    type: Array
-  }
+    type: Array,
+  },
 });
 console.log(props.questions);
 console.log(props.questions ? props.questions.length : 0);
@@ -400,8 +580,8 @@ const lastQuestion = () => {
 };
 
 const saveFileToAnswers = (question: QuestionAnswer) => {
-    allAnswer.value[question.question_id].value = question.value;
-}
+  allAnswer.value[question.question_id].value = question.value;
+};
 
 const submitWizardForm = async () => {
   await new Promise<boolean>(function (resolve, reject) {
@@ -455,9 +635,8 @@ const applicationUpdate = (flag: string) => {
 };
 
 const stepAnswerMap = () => {
-    wizardHelper.stepAnswerMap(singleStepAnswers, allAnswer, singleStep, teamMemberData)
-}
-
+  wizardHelper.stepAnswerMap(singleStepAnswers, allAnswer, singleStep, teamMemberData);
+};
 
 const applicantCreate = async () => {
   wizardState.errorMsg = "";
@@ -622,8 +801,16 @@ const LOADWIZARD = (token) => {
     .then((response: Question[]) => {
       allQuestions.value = response;
       let routeName: string | undefined = route.name?.toString();
-      wizardHelper.loadWizard(allQuestions, allAnswer, WizardProgressTracker,
-      wizardState.flag, applicantProfileData, adminNotes, teamMemberData, routeName);
+      wizardHelper.loadWizard(
+        allQuestions,
+        allAnswer,
+        WizardProgressTracker,
+        wizardState.flag,
+        applicantProfileData,
+        adminNotes,
+        teamMemberData,
+        routeName
+      );
       stepDisplay(WizardProgressTracker.activeStepNo + 1);
     })
     .catch((error) => {
@@ -675,15 +862,19 @@ const applicantRefSet = (el) => {
 const getRules = computed(() => {
   let rules = {};
   allQuestions.value.forEach((question: Question, index: number) => {
-    if (question.is_mandatory && question.is_hidden !== true && question.answer_type !== QuestionAnswerType.key) {
+    if (
+      question.is_mandatory &&
+      question.is_hidden !== true &&
+      question.answer_type !== QuestionAnswerType.key
+    ) {
       rules[question.id] = {
         value: {
           required,
         },
       };
     }
-   if(question.answer_type === QuestionAnswerType.text){
-     rules[question.id] = {
+    if (question.answer_type === QuestionAnswerType.text) {
+      rules[question.id] = {
         value: {
           maxLength,
         },
@@ -705,7 +896,10 @@ const validateForm = () => {
   if (wizardValidator$.value.$error) {
     allQuestions.value.forEach((question, index) => {
       wizardValidator$.value.$errors.forEach((error) => {
-        if (error.$uid === question.id + ".value-required" || error.$uid === question.id + ".value-maxLength") {
+        if (
+          error.$uid === question.id + ".value-required" ||
+          error.$uid === question.id + ".value-maxLength"
+        ) {
           WizardProgressTracker.errorStep.forEach((stepProgress) => {
             if (stepProgress.stepNo === question.step) {
               stepProgress.status = "error";
