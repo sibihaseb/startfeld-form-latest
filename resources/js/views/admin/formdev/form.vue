@@ -6,41 +6,42 @@
           >Add Questions</el-button
         >
         <div>
-          <p>Submitted Section: {{ submittedSections }}</p>
+          <p>Steps: {{ steps }}</p>
+          <pre>{{ allQuestions }}</pre>
         </div>
         <div v-if="isVisible">
           <div class="section">
             <add-field
-              :step="submittedSections"
+              :step="steps"
               @cancel="toggleFormSection"
               @submit="onSubmit"
             ></add-field>
           </div>
         </div>
 
-        <display-form
-          :questions="submittedSections"
-        ></display-form>
+        <wizard-view :questions="steps"></wizard-view>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, Ref, toRaw } from "vue";
 import AddField from "@/components/addField.vue";
-import DisplayForm from "@/components/wizardView.vue";
+import WizardView from "@/components/wizardView.vue";
+import type { QuestionCreate } from "../../../client/index";
+
+const allQuestions: Ref<QuestionCreate[]> = ref([]);
 
 const isVisible = ref(false);
-const submittedSections = ref<any[]>([]);
+const steps = ref<number>(0);
 
 const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
 };
-
-const onSubmit = (form: any) => {
-  form.step = submittedSections.value.length + 1; // Set the step value
-  submittedSections.value.push({ ...form });
+const onSubmit = (form: QuestionCreate) => {
+  steps.value++;
+  allQuestions.value.push(form);
   toggleFormSection();
 };
 </script>

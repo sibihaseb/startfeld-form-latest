@@ -507,12 +507,11 @@ const props = defineProps({
   disable: {
     type: Boolean,
   },
-  questions: {
-    type: Array,
+  step: {
+    type: Number,
   },
 });
-console.log(props.questions);
-console.log(props.questions ? props.questions.length : 0);
+
 
 const teamMemberRemove = () => {
   let lastelement = teamMemberData.value.length;
