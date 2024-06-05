@@ -10,8 +10,10 @@ import { QuestionTranslated } from './QuestionTranslated';
 export type QuestionCreate = {
     title: string;
     description: string;
-    type: string;
-    step: BigInteger;
+    answer_type: string;
+    step: any;
+    is_mandatory: boolean;
+    sort_order?: number;
     options?: string;
     minValue?: BigInteger;
     maxValue?: BigInteger;

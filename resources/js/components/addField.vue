@@ -8,7 +8,10 @@
         <el-input v-model="form.description" />
       </el-form-item>
       <el-form-item label="Type">
-        <el-select v-model="form.type" placeholder="Please select field type">
+        <el-select
+          v-model="form.answer_type"
+          placeholder="Please select field type"
+        >
           <el-option label="Text" value="text" />
           <el-option label="Radio" value="radio" />
           <el-option label="Checkbox" value="checkbox" />
@@ -22,17 +25,29 @@
       <el-form-item label="Steps">
         <el-select v-model="currentStep" placeholder="Please select steps">
           <el-option
-            v-for="(section , index) in props.step"
+            v-for="(section, index) in props.step"
             :key="index"
-            :label="index === 0 ? 'Step 1' : `Step ${index + 1}`"
-            :value="section.step !== undefined ? section.step : index + 1"
+            :label="`Step ${index + 1}`"
+            :value="index + 1"
           />
         </el-select>
       </el-form-item>
 
+      <el-form-item label="Is Mandatory">
+        <el-radio-group
+          v-model="form.is_mandatory"
+          id="isMandatory"
+          class="ml-4"
+        >
+          <el-radio :label="true">True</el-radio>
+          <el-radio :label="false">False</el-radio>
+        </el-radio-group>
+      </el-form-item>
 
       <!-- Additional fields based on selected type -->
-      <template v-if="form.type === 'radio' || form.type === 'checkbox'">
+      <template
+        v-if="form.answer_type === 'radio' || form.answer_type === 'checkbox'"
+      >
         <el-form-item label="Options">
           <el-input
             v-model="form.options"
@@ -40,7 +55,7 @@
           />
         </el-form-item>
       </template>
-      <template v-if="form.type === 'number'">
+      <template v-if="form.answer_type === 'number'">
         <el-form-item label="Min Value">
           <el-input v-model="form.minValue" placeholder="Enter minimum value" />
         </el-form-item>
@@ -48,7 +63,7 @@
           <el-input v-model="form.maxValue" placeholder="Enter maximum value" />
         </el-form-item>
       </template>
-      <template v-if="form.type === 'date'">
+      <template v-if="form.answer_type === 'date'">
         <el-form-item label="Date Format">
           <div class="demo-datetime-picker">
             <div class="block">
@@ -62,7 +77,7 @@
           </div>
         </el-form-item>
       </template>
-      <template v-if="form.type === 'url'">
+      <template v-if="form.answer_type === 'url'">
         <el-form-item label="Protocol">
           <el-input v-model="form.protocol" placeholder="Enter protocol" />
         </el-form-item>
@@ -77,36 +92,30 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { reactive } from "vue";
-import { defineProps, defineEmits } from "vue";
-import { Ref, ref } from "vue";
+import { ref,Ref } from "vue";
+import { defineProps } from "vue";
 import type { QuestionCreate } from "../client/index";
 
+const props = defineProps<{ step: any[] }>();
 const emit = defineEmits();
 const dateTime = ref("");
-const stepOptions = ref([]);
-
-const props = defineProps({
-  step: Array,
-  stepOptions: Array,
-});
-console.log(props.step);
-
-const form: Ref<QuestionCreate> = ref({
+const form : Ref<QuestionCreate> = ref({
   title: "",
   description: "",
-  type: "",
+  answer_type: "",
   step: "",
+  is_mandatory: true,
 });
 const cancelSection = () => {
   emit("cancel");
 };
-let initialSubmissions = ref<number>(2);
+const initialSubmissions = ref<number>(2);
 const currentStep = ref<number>(1);
 
 const onSubmit = () => {
   console.log("submit!");
-  emit("submit", form);
+  form.value.step = currentStep.value; // Set the step value
+  emit("submit", { ...form.value });
   if (initialSubmissions.value > 0) {
     initialSubmissions.value--; // Decrement initialSubmissions for the first two times
   } else {

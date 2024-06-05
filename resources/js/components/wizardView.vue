@@ -29,6 +29,7 @@
           <a class="link" :href="SITEURL + '/' + applicantStore.applicantToken">{{ SITEURL + "/" + applicantStore.applicantToken }}</a>
         </span>
       </div>
+
       <div class="questions" v-for="question in singleStep" :key="question.id">
         <div v-if="question.answer_type === QuestionAnswerType.title">
           <h3>{{ i18nLocale.locale.value === "de" ? question.title.name.de : question.title.name.en }}</h3>
@@ -330,6 +331,8 @@ const props = defineProps({
     type: Array
   }
 });
+console.log(props.questions);
+console.log(props.questions ? props.questions.length : 0);
 
 const teamMemberRemove = () => {
   let lastelement = teamMemberData.value.length;
