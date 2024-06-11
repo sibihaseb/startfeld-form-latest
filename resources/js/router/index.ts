@@ -73,6 +73,18 @@ const router = createRouter({
             }
         },
         {
+            // path: "/form",
+            path: "/:token?",
+            name: "wizard",
+            // route level code-splitting
+            // this generates a separate chunk (Login.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import("../views/wizard.vue"),
+            meta: {
+                layout: DefaultLayout,
+            }
+        },
+        {
             path: "/login",
             name: "login",
             // route level code-splitting

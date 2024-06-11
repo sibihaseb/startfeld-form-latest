@@ -8,9 +8,7 @@
         <el-input v-model="form.description.value" />
       </el-form-item>
       <el-form-item label="Type">
-        <el-select
-          v-model="form.answer_type"
-          placeholder="Please select field type">
+        <el-select v-model="form.answer_type" placeholder="Please select field type">
           <el-option
             v-for="(type, index) in QuestionAnswerType"
             :key="index"
@@ -32,11 +30,7 @@
       </el-form-item>
 
       <el-form-item label="Is Mandatory">
-        <el-radio-group
-          v-model="form.is_mandatory"
-          id="isMandatory"
-          class="ml-4"
-        >
+        <el-radio-group v-model="form.is_mandatory" id="isMandatory" class="ml-4">
           <el-radio :label="true">True</el-radio>
           <el-radio :label="false">False</el-radio>
         </el-radio-group>
@@ -52,7 +46,7 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { ref, Ref,defineProps } from "vue";
+import { ref, Ref, defineProps } from "vue";
 import type { QuestionCreate } from "../client/index";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 
