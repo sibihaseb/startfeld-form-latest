@@ -16,5 +16,6 @@ export type QuestionCreate = {
     is_mandatory: boolean;
     answer_type: QuestionAnswerType;
     options?: QuestionOptions;
+    total_section?: number[];
 };
 

@@ -19,13 +19,15 @@
       </el-form-item>
 
       <el-form-item label="Steps">
-        <el-select v-model="currentStep" placeholder="Please select steps">
+        <el-select v-model="form.step" placeholder="Please select steps">
           <el-option
-            v-for="(section, index) in props.step"
-            :key="index"
-            :label="`Step ${index + 1}`"
-            :value="index + 1"
-          />
+            v-for="item in createStepState.totalSections"
+            :key="item"
+            :label="'Section ' + item"
+            :value="item"
+            >{{ "Section " + item }}
+            {{ item > createStepState.totalLength ? " (New)" : "" }}</el-option
+          >
         </el-select>
       </el-form-item>
 
@@ -46,20 +48,32 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { ref, Ref, defineProps } from "vue";
-import type { QuestionCreate } from "../client/index";
+import { onMounted, ref, Ref, reactive, defineProps } from "vue";
+import type { QuestionCreate, StepCreate } from "../client/index";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 
-const props = defineProps<{
-  step: number;
-  sort_order: number;
-}>();
+const props = defineProps({
+  steps: {
+    required: true,
+    type: Array || undefined,
+    default: () => [],
+  },
+});
 
-const emit = defineEmits();
+const emit = defineEmits(["submit", "cancel"]);
+
+const createStepState = reactive({
+  errorMsg: "",
+  loading: false,
+  totalLength: 0,
+  totalSections: <number[]>[],
+  addbutton: false,
+  newSection: true,
+});
 
 const form: Ref<QuestionCreate> = ref({
-  step: props.step,
-  sort_order: props.sort_order,
+  step: 1,
+  sort_order: 0,
   title: {
     value: "",
     name: { en: "" },
@@ -74,20 +88,35 @@ const form: Ref<QuestionCreate> = ref({
 const cancelSection = () => {
   emit("cancel");
 };
-const initialSubmissions = ref<number>(2);
-const currentStep = ref<number>(1);
 
 const onSubmit = () => {
-  console.log("submit!");
   form.value.title.name.en = form.value.title.value;
   form.value.description.name.en = form.value.description.value;
-  form.value.step = currentStep.value; // Set the step value
+  form.value.total_section = createStepState.totalSections;
   emit("submit", { ...form.value });
+};
 
-  if (initialSubmissions.value > 0) {
-    initialSubmissions.value--; // Decrement initialSubmissions for the first two times
+onMounted(() => {
+  getAllPaths();
+});
+
+const getAllPaths = () => {
+  let steps = props.steps;
+  //   allQuestions = Object.keys(allQuestions).map((field) => {
+  //     return {
+  //       name: "Section " + field,
+  //       Step: steps[field],
+  //     };
+  //   });
+
+  createStepState.totalLength = steps.length;
+  if (createStepState.totalLength === 0) {
+    createStepState.totalSections.push(1);
   } else {
-    currentStep.value++; // Increment step for subsequent submissions
+    for (let i = 1; i <= createStepState.totalLength + 1; i++) {
+      createStepState.totalSections.push(i);
+      form.value.step = i == 1 ? 1 : i - 1;
+    }
   }
 };
 </script>

@@ -5,6 +5,7 @@ export type { Auth_Forgot } from './models/auth_forgot'
 export type { Auth_Reset_Password } from './models/auth_reset_password'
 export type { Question } from './models/Question';
 export type { StepDetailProcess } from './models/StepDetailProcess';
+export type { StepCreate } from './models/StepCreate';
 export type { StepError } from './models/StepError';
 export type { WizardProgressTracker } from './models/wizardProgressTracker';
 export type { QuestionAnswer } from './models/QuestionAnswer';

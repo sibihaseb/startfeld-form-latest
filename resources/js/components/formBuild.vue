@@ -2,10 +2,11 @@
   <div class="main-view">
     <div v-if="props.allQuestions.length > 0" class="form__wizard">
       <div class="wizard-header">
+        <p>{{ props.steps.totalStep }}</p>
         <el-steps class="steps" finish-status="success">
           <el-step
             class="wizard-step"
-            v-for="(question, index) in props.allQuestions"
+            v-for="(value, index) in props.steps.totalStep"
             :key="index"
           />
         </el-steps>
@@ -15,10 +16,11 @@
   </div>
 </template>
 <script setup lang="ts" name="formBuild">
-import { QuestionCreate } from "../client";
+import { QuestionCreate, StepCreate } from "../client";
 
 const props = defineProps<{
   allQuestions: QuestionCreate[];
+  steps: StepCreate;
 }>();
 </script>
 <style lang="scss">
