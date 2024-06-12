@@ -39,9 +39,6 @@ const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
 };
 const onSubmit = (form: QuestionCreate) => {
-  //   if (form.step > steps.value.totalStep) {
-  console.log(form.step);
-  console.log(steps.value.totalStep.length);
   if (form.step > steps.value.totalStep.length) {
     if (form.total_section) {
       console.log(form.total_section);
@@ -49,7 +46,6 @@ const onSubmit = (form: QuestionCreate) => {
     }
   }
   steps.value.activeStepNo = form.step;
-  //   }
   allQuestions.value.push(form);
   toggleFormSection();
 };

@@ -8,6 +8,7 @@ import type { QuestionOptions } from './QuestionOptions';
 import { QuestionTranslated } from './QuestionTranslated';
 
 export type QuestionCreate = {
+    id?: number;
     step: number;
     sort_order: number;
     title: QuestionTranslated;
@@ -17,5 +18,6 @@ export type QuestionCreate = {
     answer_type: QuestionAnswerType;
     options?: QuestionOptions;
     total_section?: number[];
+    answer?: QuestionAnswer;
 };
 

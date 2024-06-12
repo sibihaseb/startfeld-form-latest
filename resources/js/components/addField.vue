@@ -72,6 +72,7 @@ const createStepState = reactive({
 });
 
 const form: Ref<QuestionCreate> = ref({
+  id: 1,
   step: 1,
   sort_order: 0,
   title: {
