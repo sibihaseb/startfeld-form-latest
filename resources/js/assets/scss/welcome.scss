@@ -1,12 +1,12 @@
 @use "./colors.scss" as *;
 
 .container {
-    background: $primary;
+    background: $primaryheader;
     width: 100%;
     min-height: 80vh;
 }
 .wrapper {
-    background: $primary;
+    background: $primaryheader;
     position: relative;
 }
 header {
@@ -204,7 +204,7 @@ nav {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    background-color: $primary;
+    background-color: $primaryheader;
     font-family: "GraphikRegular";
     color: $text-color;
     text-align: center;

@@ -2,7 +2,9 @@
   <div class="main-view">
     <div class="layout_margin">
       <div class="mb-4">
-        <el-button type="primary" @click="toggleFormSection">Add Questions</el-button>
+        <el-button v-if="!isVisible" type="primary" @click="toggleFormSection"
+          >Add Questions</el-button
+        >
         <div v-if="isVisible">
           <div class="section">
             <add-field

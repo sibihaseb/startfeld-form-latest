@@ -1,6 +1,7 @@
 import { Ref } from "vue";
 import type { QuestionAnswer, Question, TeamMemberProfile, WizardProgressTracker, ApplicantProfile,
-AdminPrivateNote } from "../index";
+AdminPrivateNote,
+QuestionCreate} from "../index";
 import { wizardService } from '../index'
 import { QuestionAnswerType } from '../index'
 import { useAuthStore } from "../../store/storeAuth";
@@ -133,6 +134,45 @@ export class wizardHelper{
             });
           }
     }
+
+    static loadWizardBuild(allQuestions: Ref<QuestionCreate[]>, allAnswer: Ref<QuestionAnswer[]>)
+        {
+        allQuestions.value.forEach((question: QuestionCreate, index: number) => {
+            if (
+              question.answer_type !== QuestionAnswerType.title &&
+              question.answer_type !== QuestionAnswerType.key
+            ) {
+              if (question.answer?.value && question.answer?.value !== undefined) {
+                if (question.answer_type === QuestionAnswerType.radio) {
+                  var valueVerified = this.isJson(question.answer.value);
+                  if (valueVerified) {
+                    let answerJson = JSON.parse(question.answer?.value.toString());
+
+                    allAnswer.value[index as keyof object] = {
+                      question_id: index,
+                      value: answerJson.value,
+                      other: answerJson.other,
+                    };
+                  } else {
+                    allAnswer.value[index as keyof object] = {
+                      question_id: index,
+                      value: question.answer.value,
+                    };
+                  }
+                } else {
+                  allAnswer.value[index as keyof object] = {
+                    question_id: index,
+                    value: question.answer.value,
+                  };
+                }
+              } else {
+                allAnswer.value[index as keyof object] = { question_id: index };
+              }
+            }
+          });
+    }
+
+
 
     static isJson(str) {
         try {

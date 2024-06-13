@@ -2,7 +2,6 @@
   <div class="main-view">
     <div v-if="props.allQuestions.length > 0" class="form__wizard">
       <div class="wizard-header">
-        <p>{{ props.steps.totalStep }}</p>
         <el-steps class="steps" finish-status="success">
           <el-step
             class="wizard-step"
@@ -13,7 +12,7 @@
         </el-steps>
       </div>
       <div class="wizard">
-        <div class="questions" v-for="question in singleStep" :key="question.id">
+        <div class="questions" v-for="(question, index) in singleStep" :key="question.id">
           <div v-if="question.answer_type === QuestionAnswerType.title">
             <h3>
               {{
@@ -66,27 +65,13 @@
                       : question.title.name.en
                   "
                   :type="question.answer_type"
-                  v-model="allAnswer[question.id].value"
+                  v-model="allAnswer[index].value"
                 />
-                <div
-                  class="el-form-item__error"
-                  v-for="error in wizardValidator$.$errors"
-                  :key="error.$uid"
-                >
-                  <span v-if="error.$uid === question.id + '.value-required'">{{
-                    error.$message
-                  }}</span>
-                  <span v-if="error.$uid === question.id + '.value-maxLength'">{{
-                    error.$message
-                  }}</span>
-                </div>
               </el-form-item>
 
               <el-form-item
                 v-if="
-                  !question.is_hidden &&
-                  question.answer_type === QuestionAnswerType.date &&
-                  allAnswer[7].value !== 'Company is not yet Founded'
+                  !question.is_hidden && question.answer_type === QuestionAnswerType.date
                 "
                 :label="
                   i18nLocale.locale.value === 'de'
@@ -102,23 +87,13 @@
                   }}
                 </p>
                 <el-date-picker
-                  :disabled="wizardState.disable"
                   :placeholder="
                     i18nLocale.locale.value === 'de'
                       ? question.title.name.de
                       : question.title.name.en
                   "
-                  v-model="allAnswer[question.id].value"
+                  v-model="allAnswer[index].value"
                 />
-                <div
-                  class="el-form-item__error"
-                  v-for="error in wizardValidator$.$errors"
-                  :key="error.$uid"
-                >
-                  <span v-if="error.$uid === question.id + '.value-required'">{{
-                    error.$message
-                  }}</span>
-                </div>
               </el-form-item>
 
               <el-form-item
@@ -139,10 +114,7 @@
                       : question.description.name.en
                   }}
                 </p>
-                <el-checkbox-group
-                  v-model="allAnswer[question.id].value"
-                  :disabled="wizardState.disable"
-                >
+                <el-checkbox-group v-model="allAnswer[index].value">
                   <el-checkbox
                     class="custom-checkbox-btn"
                     v-for="option in question.options?.values"
@@ -154,15 +126,6 @@
                     }}</el-checkbox
                   >
                 </el-checkbox-group>
-                <div
-                  class="el-form-item__error"
-                  v-for="error in wizardValidator$.$errors"
-                  :key="error.$uid"
-                >
-                  <span v-if="error.$uid === question.id + '.value-required'">{{
-                    error.$message
-                  }}</span>
-                </div>
               </el-form-item>
 
               <el-form-item
@@ -182,11 +145,7 @@
                       : question.description.name.en
                   }}
                 </p>
-                <el-radio-group
-                  v-model="allAnswer[question.id].value"
-                  @change="verifymodel"
-                  :disabled="wizardState.disable"
-                >
+                <el-radio-group v-model="allAnswer[index].value" @change="verifymodel">
                   <el-radio
                     v-for="option in question.options?.values"
                     :key="option.value"
@@ -197,20 +156,10 @@
                   >
                 </el-radio-group>
                 <el-input
-                  :disabled="wizardState.disable"
-                  v-if="allAnswer[question.id].value === 'other'"
-                  v-model="allAnswer[question.id].other"
+                  v-if="allAnswer[index].value === 'other'"
+                  v-model="allAnswer[index].other"
                   type="textarea"
                 />
-                <div
-                  class="el-form-item__error"
-                  v-for="error in wizardValidator$.$errors"
-                  :key="error.$uid"
-                >
-                  <span v-if="error.$uid === question.id + '.value-required'">{{
-                    error.$message
-                  }}</span>
-                </div>
               </el-form-item>
 
               <el-form-item
@@ -232,8 +181,7 @@
                   }}
                 </p>
                 <el-select
-                  :disabled="wizardState.disable"
-                  v-model="allAnswer[question.id].value"
+                  v-model="allAnswer[index].value"
                   :placeholder="
                     i18nLocale.locale.value === 'de'
                       ? question.title.name.de
@@ -249,15 +197,6 @@
                     :value="option.value"
                   />
                 </el-select>
-                <div
-                  class="el-form-item__error"
-                  v-for="error in wizardValidator$.$errors"
-                  :key="error.$uid"
-                >
-                  <span v-if="error.$uid === question.id + '.value-required'">{{
-                    error.$message
-                  }}</span>
-                </div>
               </el-form-item>
 
               <file-upload
@@ -265,8 +204,7 @@
                   !question.is_hidden && question.answer_type === QuestionAnswerType.file
                 "
                 :question="question"
-                :disable="wizardState.disable"
-                :answerValue="allAnswer[question.id].value"
+                :answerValue="allAnswer[index].value"
                 @file-submitted="saveFileToAnswers"
               ></file-upload>
             </el-form>
@@ -294,7 +232,9 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const i18nLocale = useI18n();
-const allQuestions: Ref<Question[]> = ref([]);
+const allAnswer: Ref<QuestionAnswer[]> = ref([]);
+const allQuestions: Ref<QuestionCreate[]> = ref([]);
+const singleStepAnswers: Ref<QuestionAnswer[]> = ref([]);
 const props = defineProps<{
   allQuestions: QuestionCreate[];
   steps: StepCreate;
@@ -313,15 +253,35 @@ const stepDisplay = (stepNumber: number) => {
   singleStep.value = allQuestions.value.filter(
     (question) => question.step === stepNumber
   );
-  console.log(singleStep.value);
 };
 
 onMounted(() => {
   allQuestions.value = props.allQuestions;
   console.log(allQuestions.value);
   stepDisplay(props.steps.activeStepNo);
+  wizardHelper.loadWizardBuild(allQuestions, allAnswer);
 });
+
+const verifymodel = (value) => {
+  let Qid: number;
+  singleStep.value.forEach((question, index) => {
+    if (question.answer_type === QuestionAnswerType.radio) {
+      question.options?.values?.forEach((option) => {
+        if (value === option.value) {
+          Qid = index;
+          if (value !== "other") {
+            delete allAnswer.value[index].other;
+          }
+        }
+      });
+    }
+  });
+};
+
+const saveFileToAnswers = (question: QuestionAnswer) => {
+  allAnswer.value[question.question_id].value = question.value;
+};
 </script>
 <style lang="scss">
-@import "../assets/scss/wizard.scss";
+@import "../assets/scss/wizard";
 </style>
