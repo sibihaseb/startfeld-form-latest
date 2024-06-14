@@ -30,7 +30,7 @@
       </el-form-item>
 
       <!-- Dynamic Field for options -->
-      <div v-if="createStepState.addradio">
+      <div v-if="createStepState.addoption">
         <el-button type="primary" @click="addOption">Add Options</el-button>
         <el-form-item class="margin-add-opt">
           <div v-for="(option, index) in options" :key="index" class="flex-add-column">
@@ -100,7 +100,8 @@ const createStepState = reactive({
   loading: false,
   totalLength: 0,
   totalSections: <number[]>[],
-  addradio: false,
+  addoption: false,
+  adddescription: false,
   newSection: true,
 });
 
@@ -213,8 +214,12 @@ const rules = reactive<FormRules>({
 });
 
 const formoption = (questionType: QuestionAnswerType) => {
-  if (questionType === QuestionAnswerType.radio) {
-    createStepState.addradio = true;
+  if (
+    questionType === QuestionAnswerType.radio ||
+    questionType === QuestionAnswerType.checkbox ||
+    questionType === QuestionAnswerType.dropdown
+  ) {
+    createStepState.addoption = true;
   } else if (
     questionType === QuestionAnswerType.text ||
     questionType === QuestionAnswerType.textarea ||
@@ -223,7 +228,7 @@ const formoption = (questionType: QuestionAnswerType) => {
     questionType === QuestionAnswerType.number ||
     questionType === QuestionAnswerType.title
   ) {
-    createStepState.addradio = false;
+    createStepState.addoption = false;
   }
 };
 </script>

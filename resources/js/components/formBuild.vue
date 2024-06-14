@@ -8,6 +8,7 @@
             v-for="(value, index) in props.steps.totalStep"
             :key="index"
             :active="index"
+            @click="jumpToStep(index)"
           />
         </el-steps>
       </div>
@@ -79,21 +80,23 @@
                     : question.title.name.en
                 "
               >
-                <p v-if="question.description">
-                  {{
-                    i18nLocale.locale.value === "de"
-                      ? question.description.name.de
-                      : question.description.name.en
-                  }}
-                </p>
-                <el-date-picker
-                  :placeholder="
-                    i18nLocale.locale.value === 'de'
-                      ? question.title.name.de
-                      : question.title.name.en
-                  "
-                  v-model="allAnswer[index].value"
-                />
+                <div>
+                  <p v-if="question.description">
+                    {{
+                      i18nLocale.locale.value === "de"
+                        ? question.description.name.de
+                        : question.description.name.en
+                    }}
+                  </p>
+                  <el-date-picker
+                    :placeholder="
+                      i18nLocale.locale.value === 'de'
+                        ? question.title.name.de
+                        : question.title.name.en
+                    "
+                    v-model="allAnswer[index].value"
+                  />
+                </div>
               </el-form-item>
 
               <el-form-item
@@ -107,25 +110,27 @@
                     : question.title.name.en
                 "
               >
-                <p v-if="question.description">
-                  {{
-                    i18nLocale.locale.value === "de"
-                      ? question.description.name.de
-                      : question.description.name.en
-                  }}
-                </p>
-                <el-checkbox-group v-model="allAnswer[index].value">
-                  <el-checkbox
-                    class="custom-checkbox-btn"
-                    v-for="option in question.options?.values"
-                    :key="option.value"
-                    :label="option.value"
-                  >
+                <div>
+                  <p v-if="question.description">
                     {{
-                      i18nLocale.locale.value === "de" ? option.name.de : option.name.en
-                    }}</el-checkbox
-                  >
-                </el-checkbox-group>
+                      i18nLocale.locale.value === "de"
+                        ? question.description.name.de
+                        : question.description.name.en
+                    }}
+                  </p>
+                  <el-checkbox-group v-model="allAnswer[index].value">
+                    <el-checkbox
+                      class="custom-checkbox-btn"
+                      v-for="option in question.options?.values"
+                      :key="option.value"
+                      :label="option.value"
+                    >
+                      {{
+                        i18nLocale.locale.value === "de" ? option.name.de : option.name.en
+                      }}</el-checkbox
+                    >
+                  </el-checkbox-group>
+                </div>
               </el-form-item>
 
               <el-form-item
@@ -138,23 +143,6 @@
                     : question.title.name.en
                 "
               >
-                <p v-if="question.description">
-                  {{
-                    i18nLocale.locale.value === "de"
-                      ? question.description.name.de
-                      : question.description.name.en
-                  }}
-                </p>
-                <el-radio-group v-model="allAnswer[index].value" @change="verifymodel">
-                  <el-radio
-                    v-for="option in question.options?.values"
-                    :key="option.value"
-                    :label="option.value"
-                    >{{
-                      i18nLocale.locale.value === "de" ? option.name.de : option.name.en
-                    }}</el-radio
-                  >
-                </el-radio-group>
                 <el-input
                   v-if="allAnswer[index].value === 'other'"
                   v-model="allAnswer[index].other"
@@ -257,9 +245,10 @@ const stepDisplay = (stepNumber: number) => {
 
 onMounted(() => {
   allQuestions.value = props.allQuestions;
-  console.log(allQuestions.value);
+  WizardProgressTracker.activeStepNo = props.steps.activeStepNo;
+  WizardProgressTracker.totalStep = props.steps.totalStep.length;
   stepDisplay(props.steps.activeStepNo);
-  wizardHelper.loadWizardBuild(allQuestions, allAnswer);
+  stepAnswerMap();
 });
 
 const verifymodel = (value) => {
@@ -280,6 +269,16 @@ const verifymodel = (value) => {
 
 const saveFileToAnswers = (question: QuestionAnswer) => {
   allAnswer.value[question.question_id].value = question.value;
+};
+
+const jumpToStep = async (stepNo: number) => {
+  WizardProgressTracker.activeStepNo = stepNo;
+  stepAnswerMap();
+  stepDisplay(WizardProgressTracker.activeStepNo + 1);
+};
+
+const stepAnswerMap = () => {
+  wizardHelper.loadWizardBuild(allQuestions, allAnswer);
 };
 </script>
 <style lang="scss">
