@@ -9,6 +9,7 @@ import { QuestionTranslated } from './QuestionTranslated';
 export type Question = {
     id: number;
     step: number;
+    form_no: number;
     sort_order: number;
     title: QuestionTranslated;
     description?: QuestionTranslated,

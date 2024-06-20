@@ -5,9 +5,10 @@
         <el-steps class="steps" finish-status="success">
           <el-step
             class="wizard-step"
-            v-for="(value, index) in props.steps.totalStep"
+            v-for="(value, index) in WizardProgressTracker.totalStep"
             :key="index"
-            :active="index"
+            :active="index + 1"
+            :title="value.errorStep"
             @click="jumpToStep(index)"
           />
         </el-steps>
@@ -68,6 +69,8 @@
                   :type="question.answer_type"
                   v-model="allAnswer[index].value"
                 />
+                <i class="ri-pencil-fill"></i>
+                <i class="ri-delete-bin-line"></i>
               </el-form-item>
 
               <el-form-item
@@ -143,6 +146,25 @@
                     : question.title.name.en
                 "
               >
+                <div>
+                  <p v-if="question.description">
+                    {{
+                      i18nLocale.locale.value === "de"
+                        ? question.description.name.de
+                        : question.description.name.en
+                    }}
+                  </p>
+                  <el-radio-group v-model="allAnswer[index].value" @change="verifymodel">
+                    <el-radio
+                      v-for="option in question.options?.values"
+                      :key="option.value"
+                      :label="option.value"
+                      >{{
+                        i18nLocale.locale.value === "de" ? option.name.de : option.name.en
+                      }}</el-radio
+                    >
+                  </el-radio-group>
+                </div>
                 <el-input
                   v-if="allAnswer[index].value === 'other'"
                   v-model="allAnswer[index].other"
@@ -161,30 +183,32 @@
                     : question.title.name.en
                 "
               >
-                <p v-if="question.description">
-                  {{
-                    i18nLocale.locale.value === "de"
-                      ? question.description.name.de
-                      : question.description.name.en
-                  }}
-                </p>
-                <el-select
-                  v-model="allAnswer[index].value"
-                  :placeholder="
-                    i18nLocale.locale.value === 'de'
-                      ? question.title.name.de
-                      : question.title.name.en
-                  "
-                >
-                  <el-option
-                    v-for="option in question.options?.values"
-                    :key="option.value"
-                    :label="
-                      i18nLocale.locale.value === 'de' ? option.name.de : option.name.en
+                <div>
+                  <p v-if="question.description">
+                    {{
+                      i18nLocale.locale.value === "de"
+                        ? question.description.name.de
+                        : question.description.name.en
+                    }}
+                  </p>
+                  <el-select
+                    v-model="allAnswer[index].value"
+                    :placeholder="
+                      i18nLocale.locale.value === 'de'
+                        ? question.title.name.de
+                        : question.title.name.en
                     "
-                    :value="option.value"
-                  />
-                </el-select>
+                  >
+                    <el-option
+                      v-for="option in question.options?.values"
+                      :key="option.value"
+                      :label="
+                        i18nLocale.locale.value === 'de' ? option.name.de : option.name.en
+                      "
+                      :value="option.value"
+                    />
+                  </el-select>
+                </div>
               </el-form-item>
 
               <file-upload
@@ -197,6 +221,24 @@
               ></file-upload>
             </el-form>
           </div>
+        </div>
+        <div class="next-step">
+          <el-button
+            size="large"
+            v-show="
+              WizardProgressTracker.activeStepNo + 1 < WizardProgressTracker.totalStep
+            "
+            type="primary"
+            @click="wizardFormSubmit('forward')"
+            >{{ $t("wizard.layout.labelButtonNext") }}</el-button
+          >
+          <el-button
+            v-show="WizardProgressTracker.activeStepNo > 0"
+            size="large"
+            type="primary"
+            @click="wizardFormSubmit('back')"
+            >{{ $t("wizard.layout.labelButtonBack") }}</el-button
+          >
         </div>
       </div>
     </div>
@@ -269,6 +311,32 @@ const verifymodel = (value) => {
 
 const saveFileToAnswers = (question: QuestionAnswer) => {
   allAnswer.value[question.question_id].value = question.value;
+};
+
+const wizardFormSubmit = async (direction: string) => {
+  stepAnswerMap();
+
+  if (direction === "forward") {
+    nextQuestion();
+  }
+  if (direction === "back") {
+    lastQuestion();
+  }
+};
+
+const nextQuestion = () => {
+  if (WizardProgressTracker.activeStepNo++ > WizardProgressTracker.totalStep - 2) {
+    WizardProgressTracker.activeStepNo = 0;
+  }
+
+  stepDisplay(WizardProgressTracker.activeStepNo + 1);
+};
+
+const lastQuestion = () => {
+  if (WizardProgressTracker.activeStepNo-- > WizardProgressTracker.totalStep) {
+    WizardProgressTracker.activeStepNo = 0;
+  }
+  stepDisplay(WizardProgressTracker.activeStepNo + 1);
 };
 
 const jumpToStep = async (stepNo: number) => {

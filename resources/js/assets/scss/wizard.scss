@@ -55,17 +55,17 @@ p {
 .error {
     color: $error;
 }
-//Color of current step
-// .el-step__head.is-wait {
-//     color: $primary;
-//     border-color: $primary;
-// }
+// Color of current step
+.el-step__head.is-wait {
+    color: $primary;
+    border-color: $primary;
+}
 
-//Color of processing step
-// .el-step__head.is-process {
-//     color: $pink;
-//     border-color: $pink;
-// }
+Color of processing step
+.el-step__head.is-process {
+    color: $pink;
+    border-color: $pink;
+}
 
 //Color of Success step
 .el-step__head.is-success {

@@ -47,6 +47,7 @@ const onSubmit = (form: QuestionCreate) => {
       steps.value.totalStep = form.total_section;
     }
   }
+  console.log(form.step);
   steps.value.activeStepNo = form.step;
   allQuestions.value.push(form);
   toggleFormSection();

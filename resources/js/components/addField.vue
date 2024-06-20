@@ -146,6 +146,7 @@ const onSubmit = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       if (options) {
+        console.log(options.value);
         form.value.options = {};
         options.value.forEach((option: QuestionValueOption) => {
           option.name = {
