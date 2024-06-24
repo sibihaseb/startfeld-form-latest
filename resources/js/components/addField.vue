@@ -86,6 +86,11 @@ const i18nLocale = useI18n();
 const { t } = useI18n();
 const createForm = ref<FormInstance>();
 const props = defineProps({
+  editQuestion: {
+    required: false,
+    type: Array || undefined,
+    default: () => [],
+  },
   steps: {
     required: true,
     type: Array || undefined,

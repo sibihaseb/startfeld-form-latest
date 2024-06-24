@@ -8,7 +8,6 @@
             v-for="(value, index) in WizardProgressTracker.totalStep"
             :key="index"
             :active="index + 1"
-            :title="value.errorStep"
             @click="jumpToStep(index)"
           />
         </el-steps>
@@ -53,13 +52,24 @@
                     : question.title.name.en
                 "
               >
-                <p v-if="question.description">
-                  {{
-                    i18nLocale.locale.value === "de"
-                      ? question.description.name.de
-                      : question.description.name.en
-                  }}
-                </p>
+                <div class="edit_option">
+                  <div>
+                    <p v-if="question.description">
+                      {{
+                        i18nLocale.locale.value === "de"
+                          ? question.description.name.de
+                          : question.description.name.en
+                      }}
+                    </p>
+                  </div>
+                  <div>
+                    <i
+                      class="ri-pencil-fill edit-color"
+                      @click="editQuestion(question)"
+                    ></i>
+                    <i class="ri-delete-bin-line delete-color"></i>
+                  </div>
+                </div>
                 <el-input
                   :placeholder="
                     i18nLocale.locale.value === 'de'
@@ -69,8 +79,6 @@
                   :type="question.answer_type"
                   v-model="allAnswer[index].value"
                 />
-                <i class="ri-pencil-fill"></i>
-                <i class="ri-delete-bin-line"></i>
               </el-form-item>
 
               <el-form-item
@@ -233,7 +241,10 @@
             >{{ $t("wizard.layout.labelButtonNext") }}</el-button
           >
           <el-button
-            v-show="WizardProgressTracker.activeStepNo > 0"
+            v-show="
+              WizardProgressTracker.activeStepNo >= 1 &&
+              WizardProgressTracker.totalStep > 1
+            "
             size="large"
             type="primary"
             @click="wizardFormSubmit('back')"
@@ -264,7 +275,7 @@ const { t } = useI18n();
 const i18nLocale = useI18n();
 const allAnswer: Ref<QuestionAnswer[]> = ref([]);
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
-const singleStepAnswers: Ref<QuestionAnswer[]> = ref([]);
+const emit = defineEmits(["edit", "cancel"]);
 const props = defineProps<{
   allQuestions: QuestionCreate[];
   steps: StepCreate;
@@ -287,10 +298,10 @@ const stepDisplay = (stepNumber: number) => {
 
 onMounted(() => {
   allQuestions.value = props.allQuestions;
+  stepAnswerMap();
   WizardProgressTracker.activeStepNo = props.steps.activeStepNo;
   WizardProgressTracker.totalStep = props.steps.totalStep.length;
   stepDisplay(props.steps.activeStepNo);
-  stepAnswerMap();
 });
 
 const verifymodel = (value) => {
@@ -348,7 +359,31 @@ const jumpToStep = async (stepNo: number) => {
 const stepAnswerMap = () => {
   wizardHelper.loadWizardBuild(allQuestions, allAnswer);
 };
+
+const editQuestion = (editQuestion: QuestionCreate) => {
+  emit("edit", { editQuestion });
+};
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/scss/wizard";
+@import "../assets/scss/colors";
+
+.edit_option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.edit-color {
+  margin-right: 10px;
+  cursor: pointer;
+  color: $primary;
+}
+
+.delete-color {
+  cursor: pointer;
+  color: $error;
+}
 </style>

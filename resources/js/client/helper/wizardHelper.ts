@@ -156,17 +156,25 @@ export class wizardHelper{
                   } else {
                     allAnswer.value[index as keyof object] = {
                       question_id: index,
-                      value: question.answer.value,
+                      value: "",
                     };
                   }
                 } else {
                   allAnswer.value[index as keyof object] = {
                     question_id: index,
-                    value: question.answer.value,
+                    value: "",
                   };
                 }
               } else {
-                allAnswer.value[index as keyof object] = { question_id: index };
+                if(!allAnswer.value[index as keyof object])
+                {
+                    allAnswer.value.push({
+                        question_id: index,
+                        value: "",
+                    });
+                }
+                allAnswer.value[index as keyof object] = { question_id: index, value: '' };
+                console.log('answer'+ allAnswer.value);
               }
             }
           });

@@ -16,7 +16,11 @@
         </div>
 
         <div v-if="!isVisible">
-          <form-build :allQuestions="allQuestions" :steps="steps"></form-build>
+          <form-build
+            @edit="editQuestion"
+            :allQuestions="allQuestions"
+            :steps="steps"
+          ></form-build>
         </div>
       </div>
     </div>
@@ -24,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, toRaw } from "vue";
+import { ref, Ref } from "vue";
 import AddField from "@/components/addField.vue";
 import formBuild from "@/components/formBuild.vue";
 import type { QuestionCreate, StepCreate } from "../../../client/index";
@@ -40,16 +44,18 @@ const steps = ref<StepCreate>({
 const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
 };
-const onSubmit = (form: QuestionCreate) => {
-  if (form.step > steps.value.totalStep.length) {
-    if (form.total_section) {
-      console.log(form.total_section);
-      steps.value.totalStep = form.total_section;
+
+const editQuestion = (singleQuestion: QuestionCreate) => {
+  console.log(singleQuestion);
+};
+const onSubmit = (createdQuestion: QuestionCreate) => {
+  if (createdQuestion.step > steps.value.totalStep.length) {
+    if (createdQuestion.total_section) {
+      steps.value.totalStep = createdQuestion.total_section;
     }
   }
-  console.log(form.step);
-  steps.value.activeStepNo = form.step;
-  allQuestions.value.push(form);
+  steps.value.activeStepNo = createdQuestion.step;
+  allQuestions.value.push(createdQuestion);
   toggleFormSection();
 };
 </script>
