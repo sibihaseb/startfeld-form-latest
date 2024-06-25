@@ -9,6 +9,7 @@
           <div class="section">
             <add-field
               :steps="steps.totalStep"
+              :editQuestion="questionEdit"
               @cancel="toggleFormSection"
               @submit="onSubmit"
             ></add-field>
@@ -17,7 +18,7 @@
 
         <div v-if="!isVisible">
           <form-build
-            @edit="editQuestion"
+            @edit="emitQuestionEdit"
             :allQuestions="allQuestions"
             :steps="steps"
           ></form-build>
@@ -34,7 +35,7 @@ import formBuild from "@/components/formBuild.vue";
 import type { QuestionCreate, StepCreate } from "../../../client/index";
 
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
-
+const questionEdit: Ref<QuestionCreate | undefined> = ref();
 const isVisible = ref(false);
 const steps = ref<StepCreate>({
   activeStepNo: 1,
@@ -45,17 +46,39 @@ const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
 };
 
-const editQuestion = (singleQuestion: QuestionCreate) => {
-  console.log(singleQuestion);
-};
-const onSubmit = (createdQuestion: QuestionCreate) => {
-  if (createdQuestion.step > steps.value.totalStep.length) {
-    if (createdQuestion.total_section) {
-      steps.value.totalStep = createdQuestion.total_section;
-    }
-  }
-  steps.value.activeStepNo = createdQuestion.step;
-  allQuestions.value.push(createdQuestion);
+const emitQuestionEdit = (singleQuestion: QuestionCreate) => {
+  questionEdit.value = singleQuestion;
   toggleFormSection();
 };
+const onSubmit = (createdQuestion: QuestionCreate) => {
+  if (createdQuestion.id) {
+    if (createdQuestion.id < allQuestions.value.length) {
+      updateQuestionArray(createdQuestion);
+    } else {
+      if (createdQuestion.step > steps.value.totalStep.length) {
+        if (createdQuestion.total_section) {
+          steps.value.totalStep = createdQuestion.total_section;
+        }
+      }
+      steps.value.activeStepNo = createdQuestion.step;
+      createdQuestion.id = allQuestions.value.length + 1;
+      allQuestions.value.push(createdQuestion);
+      toggleFormSection();
+    }
+  }
+};
+
+// Function to handle the question insertion
+function updateQuestionArray(createdQuestion: QuestionCreate) {
+  // Find the index of the createdQuestion in the array
+  const index = allQuestions.value.findIndex((q) => q.id === createdQuestion.id);
+
+  // If the question is found, remove it
+  if (index !== -1) {
+    allQuestions.value.splice(index, 1);
+  }
+
+  // Add the createdQuestion to the array
+  allQuestions.value.push(createdQuestion);
+}
 </script>

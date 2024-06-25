@@ -77,19 +77,18 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { onMounted, ref, Ref, reactive, defineProps } from "vue";
+import { onMounted, ref, Ref, reactive, defineProps, PropType } from "vue";
 import type { QuestionCreate, QuestionValueOption } from "../client/index";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 import type { FormInstance, FormRules } from "element-plus";
 import { useI18n } from "vue-i18n";
-const i18nLocale = useI18n();
 const { t } = useI18n();
 const createForm = ref<FormInstance>();
 const props = defineProps({
   editQuestion: {
     required: false,
-    type: Array || undefined,
-    default: () => [],
+    type: Object || undefined,
+    default: () => {},
   },
   steps: {
     required: true,
@@ -151,7 +150,6 @@ const onSubmit = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       if (options) {
-        console.log(options.value);
         form.value.options = {};
         options.value.forEach((option: QuestionValueOption) => {
           option.name = {
@@ -174,6 +172,12 @@ onMounted(() => {
 });
 
 const getAllPaths = () => {
+  if (props.editQuestion) {
+    let currentEditQuestion = props.editQuestion.editQuestion;
+    if (currentEditQuestion !== undefined) {
+      form.value = currentEditQuestion;
+    }
+  }
   let steps = props.steps;
   createStepState.totalLength = steps.length;
   if (createStepState.totalLength === 0) {

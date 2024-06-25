@@ -174,7 +174,6 @@ export class wizardHelper{
                     });
                 }
                 allAnswer.value[index as keyof object] = { question_id: index, value: '' };
-                console.log('answer'+ allAnswer.value);
               }
             }
           });
