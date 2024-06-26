@@ -27,11 +27,11 @@ class ApplicantRequest extends FormRequest
             'address' => 'required|string|max:255',
             'zip' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-            'title' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
             'phone' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'training' => 'nullable|string|max:255',
-            'current_status' => 'required|string|max:255',
+            'about_us' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
             'current_status_other' => 'nullable|string|max:255'
         ];
 

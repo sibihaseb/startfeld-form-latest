@@ -11,17 +11,17 @@ class Applicant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'token',
         'surname',
         'firstname',
         'address',
         'zip',
         'city',
         'email',
-        'title',
-        'token',
+        'country',
         'phone',
-        'training',
-        'current_status',
+        'about_us',
+        'gender',
         'current_status_other'
     ];
 

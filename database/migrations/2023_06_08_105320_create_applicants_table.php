@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('zip');
             $table->string('city');
             $table->string('email');
-            $table->string('title')->nullable();
+            $table->string('country')->nullable();
             $table->string('phone');
-            $table->string('training')->nullable();
-            $table->enum('current_status', ['employed', 'self-employed', 'unemployed', 'other']);
+            $table->enum('about_us', ['social-media', 'event', 'friend', 'ad', 'other']);
+            $table->enum('gender', ['social-media', 'event', 'friend', 'ad', 'other']);
             $table->string('current_status_other')->nullable();
             $table->timestamps();
             $table->softDeletes();
