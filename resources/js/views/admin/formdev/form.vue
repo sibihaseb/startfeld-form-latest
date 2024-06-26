@@ -2,9 +2,17 @@
   <div class="main-view">
     <div class="layout_margin">
       <div class="mb-4" v-if="!isDelete">
-        <el-button v-if="!isVisible" type="primary" @click="toggleFormSection"
-          >Add Questions</el-button
-        >
+        <div class="form-header">
+          <el-button v-if="!isVisible" type="primary" @click="toggleFormSection"
+            >Add Questions</el-button
+          >
+          <el-button
+            v-if="!isVisible && allQuestions.length > 0"
+            type="success"
+            @click="saveForm"
+            >Save Questions</el-button
+          >
+        </div>
         <div v-if="isVisible">
           <div class="section">
             <add-field
@@ -129,6 +137,10 @@ function cancleDetele() {
   questionDelete.value = undefined;
   toggleDeleteSection();
 }
+
+function saveForm() {
+  console.log(allQuestions.value);
+}
 </script>
 <style lang="scss" scoped>
 .delete-div {
@@ -142,5 +154,10 @@ function cancleDetele() {
 }
 .space-div {
   margin-top: 20px;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
