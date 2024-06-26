@@ -1,6 +1,7 @@
 export enum ApplicantCurrentStatus{
-    employed = 'employed',
-    self_employed = 'self-employed',
-    unemployed = 'unemployed',
+    social_media = 'social-media',
+    event = 'event',
+    friend = 'friend',
+    ad = 'ad',
     other = 'other'
 }

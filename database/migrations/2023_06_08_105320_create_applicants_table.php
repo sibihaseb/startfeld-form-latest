@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('phone');
             $table->enum('about_us', ['social-media', 'event', 'friend', 'ad', 'other']);
-            $table->enum('gender', ['social-media', 'event', 'friend', 'ad', 'other']);
+            $table->enum('gender', ['male', 'female']);
             $table->string('current_status_other')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -92,12 +92,12 @@
           </el-form-item>
         </div>
         <div class="row-item-2">
-          <el-form-item :label="$t('wizard.mainContactDetail.labelTitle')">
+          <el-form-item :label="$t('wizard.mainContactDetail.labelCountry')">
             <el-input
               type="text"
               :disabled="props.disable"
-              v-model="props.saveProfile.title"
-              :placeholder="$t('wizard.mainContactDetail.labelTitle')"
+              v-model="props.saveProfile.country"
+              :placeholder="$t('wizard.mainContactDetail.labelCountry')"
             />
           </el-form-item>
         </div>
@@ -117,48 +117,61 @@
           </el-form-item>
         </div>
         <div class="row-item-2">
-          <el-form-item :label="$t('wizard.mainContactDetail.labelTraining')">
-            <el-input
-              type="text"
-              :disabled="props.disable"
-              v-model="props.saveProfile.training"
-              :placeholder="$t('wizard.mainContactDetail.labelTraining')"
-            />
+          <el-form-item :label="$t('wizard.mainContactDetail.labelGender')">
+            <el-radio-group v-model="props.saveProfile.gender" :disabled="props.disable">
+              <el-radio :label="ApplicantGender.male">{{
+                $t("wizard.mainContactDetail.labelMale")
+              }}</el-radio>
+              <el-radio :label="ApplicantGender.female">{{
+                $t("wizard.mainContactDetail.labelFemale")
+              }}</el-radio>
+            </el-radio-group>
+            <div class="el-form-item__error" v-if="v$.about_us.$error">
+              <div class="error-msg">{{ v$.about_us.$errors[0].$message }}</div>
+            </div>
           </el-form-item>
+          <div class="error-msg api-error" v-if="props.error">
+            {{ props.error }}
+          </div>
         </div>
       </div>
       <div class="row">
-        <el-form-item :label="$t('wizard.mainContactDetail.labelCurrentStatus')">
-          <el-radio-group
-            v-model="props.saveProfile.current_status"
-            :disabled="props.disable"
-          >
-            <el-radio :label="ApplicantCurrentStatus.employed">{{
-              $t("wizard.mainContactDetail.labelEmployed")
-            }}</el-radio>
-            <el-radio :label="ApplicantCurrentStatus.unemployed">{{
-              $t("wizard.mainContactDetail.labelUnemployed")
-            }}</el-radio>
-            <el-radio :label="ApplicantCurrentStatus.self_employed">{{
-              $t("wizard.mainContactDetail.labelSelfEmployed")
-            }}</el-radio>
-            <el-radio :label="ApplicantCurrentStatus.other">{{
-              $t("wizard.mainContactDetail.labelOther")
-            }}</el-radio>
-          </el-radio-group>
-          <el-input
-            :disabled="props.disable"
-            v-if="props.saveProfile.current_status === ApplicantCurrentStatus.other"
-            type="textarea"
-            v-model="props.saveProfile.current_status_other"
-            :placeholder="$t('wizard.mainContactDetail.labelOther')"
-          />
-          <div class="el-form-item__error" v-if="v$.current_status.$error">
-            <div class="error-msg">{{ v$.current_status.$errors[0].$message }}</div>
+        <div class="row-item">
+          <el-form-item :label="$t('wizard.mainContactDetail.labelAboutUs')">
+            <el-radio-group
+              v-model="props.saveProfile.about_us"
+              :disabled="props.disable"
+            >
+              <el-radio :label="ApplicantCurrentStatus.social_media">{{
+                $t("wizard.mainContactDetail.labelSocialMedia")
+              }}</el-radio>
+              <el-radio :label="ApplicantCurrentStatus.event">{{
+                $t("wizard.mainContactDetail.labelEvent")
+              }}</el-radio>
+              <el-radio :label="ApplicantCurrentStatus.friend">{{
+                $t("wizard.mainContactDetail.labelFriend")
+              }}</el-radio>
+              <el-radio :label="ApplicantCurrentStatus.ad">{{
+                $t("wizard.mainContactDetail.labelAd")
+              }}</el-radio>
+              <el-radio :label="ApplicantCurrentStatus.other">{{
+                $t("wizard.mainContactDetail.labelOther")
+              }}</el-radio>
+            </el-radio-group>
+            <el-input
+              :disabled="props.disable"
+              v-if="props.saveProfile.about_us === ApplicantCurrentStatus.other"
+              type="textarea"
+              v-model="props.saveProfile.current_status_other"
+              :placeholder="$t('wizard.mainContactDetail.labelOther')"
+            />
+            <div class="el-form-item__error" v-if="v$.about_us.$error">
+              <div class="error-msg">{{ v$.about_us.$errors[0].$message }}</div>
+            </div>
+          </el-form-item>
+          <div class="error-msg api-error" v-if="props.error">
+            {{ props.error }}
           </div>
-        </el-form-item>
-        <div class="error-msg api-error" v-if="props.error">
-          {{ props.error }}
         </div>
       </div>
     </el-form>
@@ -167,7 +180,7 @@
 
 <script setup lang="ts">
 import type { ApplicantProfile } from "../client";
-import { ApplicantCurrentStatus } from "../client";
+import { ApplicantCurrentStatus, ApplicantGender } from "../client";
 import { required, email, maxLength } from "../plugins/i18n-validators";
 import { useVuelidate } from "@vuelidate/core";
 
@@ -192,7 +205,7 @@ const rules = {
   city: { required, maxLength },
   email: { required, email },
   phone: { required, maxLength },
-  current_status: { required },
+  about_us: { required },
 };
 const v$ = useVuelidate(rules, props.saveProfile);
 

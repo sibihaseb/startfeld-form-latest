@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         User::create($user);
 
         $question1 = [
+            'form_no' => 1,
             'step' => 1,
             'sort_order' => 0,
             'title' =>  array(
@@ -59,6 +60,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question2 = [
+            'form_no' => 1,
             'step' => 1,
             'sort_order' => 1,
             'title' => array(
@@ -74,6 +76,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question3 = [
+            'form_no' => 1,
             'step' => 1,
             'sort_order' => 2,
             'title' => array(
@@ -90,6 +93,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question4 = [
+            'form_no' => 1,
             'step' => 1,
             'sort_order' => 3,
             'title' => array(
@@ -105,6 +109,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question5 = [
+            'form_no' => 1,
             'step' => 2,
             'sort_order' => 0,
             'title' => array(
@@ -122,6 +127,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question6 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 0,
             'title' => array(
@@ -136,6 +142,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question7 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 1,
             'title' => array(
@@ -174,6 +181,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question8 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 2,
             'title' => array(
@@ -189,6 +197,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question9 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 3,
             'title' => array(
@@ -263,6 +272,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question10 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 4,
             'title' => array(
@@ -278,6 +288,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question11 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 5,
             'title' => array(
@@ -293,6 +304,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question12 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 6,
             'title' => array(
@@ -349,6 +361,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question13 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 7,
             'title' => array(
@@ -363,6 +376,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question14 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 8,
             'title' => array(
@@ -400,6 +414,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question15 = [
+            'form_no' => 1,
             'step' => 3,
             'sort_order' => 9,
             'title' => array(
@@ -414,6 +429,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question16 = [
+            'form_no' => 1,
             'step' => 4,
             'sort_order' => 0,
             'title' => array(
@@ -437,6 +453,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question17 = [
+            'form_no' => 1,
             'step' => 4,
             'sort_order' => 1,
             'title' => array(
@@ -460,6 +477,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question18 = [
+            'form_no' => 1,
             'step' => 5,
             'sort_order' => 0,
             'title' => array(
@@ -483,6 +501,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question19 = [
+            'form_no' => 1,
             'step' => 5,
             'sort_order' => 1,
             'title' => array(
@@ -506,6 +525,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question20 = [
+            'form_no' => 1,
             'step' => 5,
             'sort_order' => 2,
             'title' => array(
@@ -529,6 +549,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question21 = [
+            'form_no' => 1,
             'step' => 5,
             'sort_order' => 3,
             'title' => array(
@@ -552,6 +573,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question22 = [
+            'form_no' => 1,
             'step' => 6,
             'sort_order' => 0,
             'title' => array(
@@ -575,6 +597,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question23 = [
+            'form_no' => 1,
             'step' => 6,
             'sort_order' => 1,
             'title' => array(
@@ -598,6 +621,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question24 = [
+            'form_no' => 1,
             'step' => 6,
             'sort_order' => 2,
             'title' => array(
@@ -621,6 +645,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question25 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 0,
             'title' => array(
@@ -643,6 +668,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question26 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 1,
             'title' =>  array(
@@ -681,6 +707,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question27 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 2,
             'title' =>  array(
@@ -718,6 +745,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question28 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 3,
             'title' => array(
@@ -729,32 +757,33 @@ class DatabaseSeeder extends Seeder
                 ),
             ),
             'answer_type' => 'radio',
-            'options' => array (
-            'values' =>
-                    array (
-                        0 =>
-                        array (
+            'options' => array(
+                'values' =>
+                array(
+                    0 =>
+                    array(
                         'value' => 'Yes',
                         'name' =>
-                        array (
+                        array(
                             'de' => 'Yes',
                             'en' => 'Yes',
                         ),
-                        ),
-                        1 =>
-                        array (
+                    ),
+                    1 =>
+                    array(
                         'value' => 'No',
                         'name' =>
-                        array (
+                        array(
                             'de' => 'No',
                             'en' => 'No',
                         ),
-                        ),
                     ),
-                    )
+                ),
+            )
         ];
 
         $question29 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 4,
             'title' => array(
@@ -772,6 +801,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question30 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 5,
             'title' => array(
@@ -783,32 +813,33 @@ class DatabaseSeeder extends Seeder
                 ),
             ),
             'answer_type' => 'radio',
-            'options' => array (
-            'values' =>
-                    array (
-                        0 =>
-                        array (
+            'options' => array(
+                'values' =>
+                array(
+                    0 =>
+                    array(
                         'value' => 'Yes',
                         'name' =>
-                        array (
+                        array(
                             'de' => 'Yes',
                             'en' => 'Yes',
                         ),
-                        ),
-                        1 =>
-                        array (
+                    ),
+                    1 =>
+                    array(
                         'value' => 'No',
                         'name' =>
-                        array (
+                        array(
                             'de' => 'No',
                             'en' => 'No',
                         ),
-                        ),
                     ),
-                    )
+                ),
+            )
         ];
 
         $question31 = [
+            'form_no' => 1,
             'step' => 7,
             'sort_order' => 6,
             'title' => array(
@@ -823,6 +854,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question32 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 0,
             'title' => array(
@@ -837,6 +869,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question33 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 1,
             'title' => array(
@@ -850,6 +883,7 @@ class DatabaseSeeder extends Seeder
             'answer_type' => 'title',
         ];
         $question34 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 1,
             'title' => array(
@@ -863,6 +897,7 @@ class DatabaseSeeder extends Seeder
             'answer_type' => 'file',
         ];
         $question35 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 1,
             'title' => array(
@@ -876,6 +911,7 @@ class DatabaseSeeder extends Seeder
             'answer_type' => 'file',
         ];
         $question36 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 1,
             'title' => array(
@@ -890,6 +926,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question37 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 1,
             'title' => array(
@@ -904,6 +941,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question38 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 2,
             'title' => array(
@@ -959,6 +997,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question39 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 3,
             'title' => array(
@@ -974,6 +1013,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question40 = [
+            'form_no' => 1,
             'step' => 8,
             'sort_order' => 4,
             'title' => array(
@@ -989,6 +1029,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question41 = [
+            'form_no' => 1,
             'step' => 9,
             'sort_order' => 0,
             'title' => array(
@@ -1003,6 +1044,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $question42 = [
+            'form_no' => 1,
             'step' => 9,
             'sort_order' => 1,
             'title' => array(

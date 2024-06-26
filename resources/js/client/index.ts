@@ -20,6 +20,7 @@ export type { ApplicantTable } from './models/ApplicantTable'
 export type { AdminPrivateNote } from './models/AdminPrivateNote';
 export type { QuestionCreate } from './models/QuestionCreate';
 export { ApplicantCurrentStatus } from './models/ApplicantCurrentStatus'
+export { ApplicantGender } from './models/ApplicantGender'
 export { ApplicationStatusType } from './models/ApplicationStatusType'
 export { authService } from './services/authService'
 export { userService } from './services/userService'
