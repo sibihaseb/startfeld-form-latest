@@ -176,6 +176,14 @@ const getAllPaths = () => {
     let currentEditQuestion = props.editQuestion.editQuestion;
     if (currentEditQuestion !== undefined) {
       form.value = currentEditQuestion;
+      if (form.value.options) {
+        if (form.value.options.values) {
+          if (form.value.options.values.length > 1) {
+            createStepState.addoption = true;
+          }
+          options.value = form.value.options.values;
+        }
+      }
     }
   }
   let steps = props.steps;

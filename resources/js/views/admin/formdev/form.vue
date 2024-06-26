@@ -1,7 +1,7 @@
 <template>
   <div class="main-view">
     <div class="layout_margin">
-      <div class="mb-4">
+      <div class="mb-4" v-if="!isDelete">
         <el-button v-if="!isVisible" type="primary" @click="toggleFormSection"
           >Add Questions</el-button
         >
@@ -25,19 +25,30 @@
           ></form-build>
         </div>
       </div>
+      <div class="mb-4 delete-div" v-if="isDelete">
+        <div class="delete-dialog">
+          <h3>Are you Sure you want to Delete?</h3>
+          <div class="space-div">
+            <el-button type="primary" @click="deleteArrayData">Ok</el-button>
+            <el-button type="danger" @click="cancleDetele">Cancle</el-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref, Ref, watch } from "vue";
 import AddField from "@/components/addField.vue";
 import formBuild from "@/components/formBuild.vue";
 import type { QuestionCreate, StepCreate } from "../../../client/index";
 
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
 const questionEdit: Ref<QuestionCreate | undefined> = ref();
+const questionDelete: Ref<QuestionCreate | undefined> = ref();
 const isVisible = ref(false);
+const isDelete = ref(false);
 const editQuestionCheck = ref(false);
 const steps = ref<StepCreate>({
   activeStepNo: 1,
@@ -46,6 +57,10 @@ const steps = ref<StepCreate>({
 
 const toggleFormSection = () => {
   isVisible.value = !isVisible.value;
+};
+
+const toggleDeleteSection = () => {
+  isDelete.value = !isDelete.value;
 };
 
 const emitQuestionEdit = (singleQuestion: QuestionCreate) => {
@@ -89,13 +104,43 @@ function updateQuestionArray(createdQuestion: QuestionCreate) {
   allQuestions.value.push(createdQuestion);
 }
 
-function deleteQuestionArray(createdQuestion: QuestionCreate) {
-  // Find the index of the createdQuestion in the array
-  const index = allQuestions.value.findIndex((q) => q.id === createdQuestion.id);
-
-  // If the question is found, remove it
-  if (index !== -1) {
-    allQuestions.value.splice(index, 1);
+function deleteArrayData() {
+  console.log(questionDelete.value);
+  if (questionDelete.value !== undefined) {
+    if (questionDelete.value.id !== undefined) {
+      const index = allQuestions.value.findIndex(
+        (q) => q.id === questionDelete.value?.id
+      );
+      console.log(index, allQuestions.value);
+      allQuestions.value.splice(index, 1);
+      questionDelete.value = undefined;
+      toggleDeleteSection();
+    }
   }
 }
+
+function deleteQuestionArray(createdQuestion: QuestionCreate) {
+  // Find the index of the createdQuestion in the array
+  questionDelete.value = createdQuestion;
+  toggleDeleteSection();
+}
+
+function cancleDetele() {
+  questionDelete.value = undefined;
+  toggleDeleteSection();
+}
 </script>
+<style lang="scss" scoped>
+.delete-div {
+  display: flex;
+  justify-content: center;
+}
+.delete-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.space-div {
+  margin-top: 20px;
+}
+</style>

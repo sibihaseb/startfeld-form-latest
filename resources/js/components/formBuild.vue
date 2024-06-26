@@ -95,13 +95,27 @@
                 "
               >
                 <div>
-                  <p v-if="question.description">
-                    {{
-                      i18nLocale.locale.value === "de"
-                        ? question.description.name.de
-                        : question.description.name.en
-                    }}
-                  </p>
+                  <div class="edit_option">
+                    <div>
+                      <p v-if="question.description">
+                        {{
+                          i18nLocale.locale.value === "de"
+                            ? question.description.name.de
+                            : question.description.name.en
+                        }}
+                      </p>
+                    </div>
+                    <div>
+                      <i
+                        class="ri-pencil-fill edit-color"
+                        @click="editQuestion(question)"
+                      ></i>
+                      <i
+                        class="ri-delete-bin-line delete-color"
+                        @click="deleteQuestion(question)"
+                      ></i>
+                    </div>
+                  </div>
                   <el-date-picker
                     :placeholder="
                       i18nLocale.locale.value === 'de'
@@ -125,13 +139,27 @@
                 "
               >
                 <div>
-                  <p v-if="question.description">
-                    {{
-                      i18nLocale.locale.value === "de"
-                        ? question.description.name.de
-                        : question.description.name.en
-                    }}
-                  </p>
+                  <div class="edit_option">
+                    <div>
+                      <p v-if="question.description">
+                        {{
+                          i18nLocale.locale.value === "de"
+                            ? question.description.name.de
+                            : question.description.name.en
+                        }}
+                      </p>
+                    </div>
+                    <div>
+                      <i
+                        class="ri-pencil-fill edit-color"
+                        @click="editQuestion(question)"
+                      ></i>
+                      <i
+                        class="ri-delete-bin-line delete-color"
+                        @click="deleteQuestion(question)"
+                      ></i>
+                    </div>
+                  </div>
                   <el-checkbox-group v-model="allAnswer[index].value">
                     <el-checkbox
                       class="custom-checkbox-btn"
@@ -158,13 +186,27 @@
                 "
               >
                 <div>
-                  <p v-if="question.description">
-                    {{
-                      i18nLocale.locale.value === "de"
-                        ? question.description.name.de
-                        : question.description.name.en
-                    }}
-                  </p>
+                  <div class="edit_option">
+                    <div>
+                      <p v-if="question.description">
+                        {{
+                          i18nLocale.locale.value === "de"
+                            ? question.description.name.de
+                            : question.description.name.en
+                        }}
+                      </p>
+                    </div>
+                    <div>
+                      <i
+                        class="ri-pencil-fill edit-color"
+                        @click="editQuestion(question)"
+                      ></i>
+                      <i
+                        class="ri-delete-bin-line delete-color"
+                        @click="deleteQuestion(question)"
+                      ></i>
+                    </div>
+                  </div>
                   <el-radio-group v-model="allAnswer[index].value" @change="verifymodel">
                     <el-radio
                       v-for="option in question.options?.values"
@@ -195,13 +237,27 @@
                 "
               >
                 <div>
-                  <p v-if="question.description">
-                    {{
-                      i18nLocale.locale.value === "de"
-                        ? question.description.name.de
-                        : question.description.name.en
-                    }}
-                  </p>
+                  <div class="edit_option">
+                    <div>
+                      <p v-if="question.description">
+                        {{
+                          i18nLocale.locale.value === "de"
+                            ? question.description.name.de
+                            : question.description.name.en
+                        }}
+                      </p>
+                    </div>
+                    <div>
+                      <i
+                        class="ri-pencil-fill edit-color"
+                        @click="editQuestion(question)"
+                      ></i>
+                      <i
+                        class="ri-delete-bin-line delete-color"
+                        @click="deleteQuestion(question)"
+                      ></i>
+                    </div>
+                  </div>
                   <el-select
                     v-model="allAnswer[index].value"
                     :placeholder="
@@ -259,7 +315,7 @@
   </div>
 </template>
 <script setup lang="ts" name="formBuild">
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import type { Ref } from "vue";
 import type {
   QuestionCreate,
@@ -368,12 +424,8 @@ const editQuestion = (editQuestion: QuestionCreate) => {
 };
 
 const deleteQuestion = (deleteQuestion: QuestionCreate) => {
-  const index = allQuestions.value.findIndex((q) => q.id === deleteQuestion.id);
-
-  // If the question is found, remove it
-  if (index !== -1) {
-    allQuestions.value.splice(index, 1);
-  }
+  // Find the index of the createdQuestion in the array
+  emit("delete", { ...deleteQuestion });
 };
 </script>
 <style lang="scss" scoped>
