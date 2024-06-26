@@ -19,6 +19,7 @@
         <div v-if="!isVisible">
           <form-build
             @edit="emitQuestionEdit"
+            @delete="deleteQuestionArray"
             :allQuestions="allQuestions"
             :steps="steps"
           ></form-build>
@@ -37,6 +38,7 @@ import type { QuestionCreate, StepCreate } from "../../../client/index";
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
 const questionEdit: Ref<QuestionCreate | undefined> = ref();
 const isVisible = ref(false);
+const editQuestionCheck = ref(false);
 const steps = ref<StepCreate>({
   activeStepNo: 1,
   totalStep: [1],
@@ -48,23 +50,28 @@ const toggleFormSection = () => {
 
 const emitQuestionEdit = (singleQuestion: QuestionCreate) => {
   questionEdit.value = singleQuestion;
+  editQuestionCheck.value = true;
   toggleFormSection();
 };
+
 const onSubmit = (createdQuestion: QuestionCreate) => {
+  console.log(createdQuestion.id, allQuestions.value.length);
   if (createdQuestion.id) {
-    if (createdQuestion.id < allQuestions.value.length) {
-      updateQuestionArray(createdQuestion);
-    } else {
-      if (createdQuestion.step > steps.value.totalStep.length) {
-        if (createdQuestion.total_section) {
-          steps.value.totalStep = createdQuestion.total_section;
-        }
-      }
-      steps.value.activeStepNo = createdQuestion.step;
-      createdQuestion.id = allQuestions.value.length + 1;
-      allQuestions.value.push(createdQuestion);
-      toggleFormSection();
+    if (editQuestionCheck.value) {
+      editQuestionCheck.value = false;
+      questionEdit.value = undefined;
     }
+    updateQuestionArray(createdQuestion);
+    if (createdQuestion.step > steps.value.totalStep.length) {
+      if (createdQuestion.total_section) {
+        steps.value.totalStep = createdQuestion.total_section;
+      }
+    }
+    steps.value.activeStepNo = createdQuestion.step;
+    if (createdQuestion.id === 1) {
+      createdQuestion.id = allQuestions.value.length + 1;
+    }
+    toggleFormSection();
   }
 };
 
@@ -80,5 +87,15 @@ function updateQuestionArray(createdQuestion: QuestionCreate) {
 
   // Add the createdQuestion to the array
   allQuestions.value.push(createdQuestion);
+}
+
+function deleteQuestionArray(createdQuestion: QuestionCreate) {
+  // Find the index of the createdQuestion in the array
+  const index = allQuestions.value.findIndex((q) => q.id === createdQuestion.id);
+
+  // If the question is found, remove it
+  if (index !== -1) {
+    allQuestions.value.splice(index, 1);
+  }
 }
 </script>

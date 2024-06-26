@@ -67,7 +67,10 @@
                       class="ri-pencil-fill edit-color"
                       @click="editQuestion(question)"
                     ></i>
-                    <i class="ri-delete-bin-line delete-color"></i>
+                    <i
+                      class="ri-delete-bin-line delete-color"
+                      @click="deleteQuestion(question)"
+                    ></i>
                   </div>
                 </div>
                 <el-input
@@ -275,7 +278,7 @@ const { t } = useI18n();
 const i18nLocale = useI18n();
 const allAnswer: Ref<QuestionAnswer[]> = ref([]);
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
-const emit = defineEmits(["edit", "cancel"]);
+const emit = defineEmits(["edit", "delete"]);
 const props = defineProps<{
   allQuestions: QuestionCreate[];
   steps: StepCreate;
@@ -362,6 +365,15 @@ const stepAnswerMap = () => {
 
 const editQuestion = (editQuestion: QuestionCreate) => {
   emit("edit", { editQuestion });
+};
+
+const deleteQuestion = (deleteQuestion: QuestionCreate) => {
+  const index = allQuestions.value.findIndex((q) => q.id === deleteQuestion.id);
+
+  // If the question is found, remove it
+  if (index !== -1) {
+    allQuestions.value.splice(index, 1);
+  }
 };
 </script>
 <style lang="scss" scoped>
