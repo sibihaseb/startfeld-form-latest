@@ -30,6 +30,17 @@
               }}
             </p>
           </div>
+          <div v-else-if="question.answer_type === QuestionAnswerType.key">
+            <applicant
+              :saveProfile="applicantProfileData"
+              v-if="question.options?.key === 'applicant'"
+              :ref="
+                (el) => {
+                  applicantRefSet(el);
+                }
+              "
+            />
+          </div>
           <div v-else>
             <el-form
               require-asterisk-position="right"
@@ -326,7 +337,11 @@ import type {
   AdminPrivateNote,
 } from "../client";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
+import type { ApplicantProfile, ApplicationStatus } from "../client";
+import { ApplicantCurrentStatus } from "../client/models/ApplicantCurrentStatus";
+import { ApplicantGender } from "../client/models/ApplicantGender";
 import fileUpload from "@/components/fileUpload.vue";
+import applicant from "@/components/applicant.vue";
 import { wizardHelper } from "../client/helper/wizardHelper";
 import { useI18n } from "vue-i18n";
 
@@ -334,11 +349,28 @@ const { t } = useI18n();
 const i18nLocale = useI18n();
 const allAnswer: Ref<QuestionAnswer[]> = ref([]);
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
+const applicantRef = ref();
+const applicantProfileData: Ref<ApplicantProfile> = ref({
+  id: 0,
+  surname: "",
+  firstname: "",
+  address: "",
+  zip: "",
+  city: "",
+  email: "",
+  phone: "",
+  about_us: ApplicantCurrentStatus.social_media,
+  gender: ApplicantGender.male,
+});
 const emit = defineEmits(["edit", "delete"]);
 const props = defineProps<{
   allQuestions: QuestionCreate[];
   steps: StepCreate;
 }>();
+
+const applicantRefSet = (el) => {
+  applicantRef.value = el;
+};
 
 const WizardProgressTracker: StepDetailProcess = reactive({
   activeStepNo: 0,

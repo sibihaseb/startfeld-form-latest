@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApplicantController;
 use App\Http\Controllers\Api\ApplicationController;
+use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WizardController;
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'localize'], function () {
         Route::get('download/{token}/form', [WizardController::class, 'downloadFormPdf']);
         //SuperAdmin Routes and UserManagement
         Route::apiResource('users', UserController::class)->middleware('superadmin');
+        //Crud Questions
+        Route::apiResource('questions', QuestionController::class)->middleware('superadmin');
     });
     //loading all question for wizard
     Route::get('loadwizard/{token?}', [WizardController::class, 'index']);

@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts" name="addField">
-import { onMounted, ref, Ref, reactive, defineProps, PropType } from "vue";
+import { onMounted, ref, Ref, reactive, defineProps } from "vue";
 import type { QuestionCreate, QuestionValueOption } from "../client/index";
 import { QuestionAnswerType } from "../client/models/QuestionAnswerType";
 import type { FormInstance, FormRules } from "element-plus";
@@ -157,7 +157,11 @@ const onSubmit = (formEl: FormInstance | undefined) => {
             de: option.value,
           };
         });
-        form.value.options.values = options.value;
+        if (form.value.answer_type === QuestionAnswerType.key) {
+          form.value.options = { key: "applicant" };
+        } else {
+          form.value.options.values = options.value;
+        }
       }
       form.value.title.name.en = form.value.title.value;
       form.value.description.name.en = form.value.description.value;
@@ -246,6 +250,8 @@ const formoption = (questionType: QuestionAnswerType) => {
     questionType === QuestionAnswerType.number ||
     questionType === QuestionAnswerType.title
   ) {
+    createStepState.addoption = false;
+  } else if (questionType === QuestionAnswerType.key) {
     createStepState.addoption = false;
   }
 };

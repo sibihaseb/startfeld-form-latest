@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->integer('form_no');
+            $table->integer('form_no')->after('id');
         });
     }
 

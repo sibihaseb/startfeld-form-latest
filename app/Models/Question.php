@@ -10,6 +10,7 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
+        'form_no',
         'step',
         'sort_order',
         'title',

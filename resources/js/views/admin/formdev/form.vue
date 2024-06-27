@@ -9,7 +9,8 @@
           <el-button
             v-if="!isVisible && allQuestions.length > 0"
             type="success"
-            @click="saveForm"
+            :loading="createFormState.loading"
+            @click="submitQuestions"
             >Save Questions</el-button
           >
         </div>
@@ -47,11 +48,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, watch } from "vue";
+import { ref, Ref, reactive } from "vue";
 import AddField from "@/components/addField.vue";
 import formBuild from "@/components/formBuild.vue";
 import type { QuestionCreate, StepCreate } from "../../../client/index";
+import { questionService } from "../../../client/services/questionService";
+import { useI18n } from "vue-i18n";
 
+const i18nLocale = useI18n();
 const allQuestions: Ref<QuestionCreate[]> = ref([]);
 const questionEdit: Ref<QuestionCreate | undefined> = ref();
 const questionDelete: Ref<QuestionCreate | undefined> = ref();
@@ -61,6 +65,11 @@ const editQuestionCheck = ref(false);
 const steps = ref<StepCreate>({
   activeStepNo: 1,
   totalStep: [1],
+});
+
+const createFormState = reactive({
+  errorMsg: "",
+  loading: false,
 });
 
 const toggleFormSection = () => {
@@ -78,7 +87,7 @@ const emitQuestionEdit = (singleQuestion: QuestionCreate) => {
 };
 
 const onSubmit = (createdQuestion: QuestionCreate) => {
-  console.log(createdQuestion.id, allQuestions.value.length);
+  console.log(createdQuestion.id, allQuestions.value);
   if (createdQuestion.id) {
     if (editQuestionCheck.value) {
       editQuestionCheck.value = false;
@@ -138,9 +147,20 @@ function cancleDetele() {
   toggleDeleteSection();
 }
 
-function saveForm() {
-  console.log(allQuestions.value);
-}
+const submitQuestions = async () => {
+  let formData = new FormData();
+  formData.append("questions", JSON.stringify(allQuestions.value));
+  if (allQuestions.value.length > 0) {
+    await questionService
+      .create(formData, i18nLocale.locale.value)
+      .then((questions: QuestionCreate[]) => {
+        allQuestions.value = questions;
+      })
+      .catch((error) => {
+        createFormState.errorMsg = error.data.message;
+      });
+  }
+};
 </script>
 <style lang="scss" scoped>
 .delete-div {
