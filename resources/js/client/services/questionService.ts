@@ -5,15 +5,12 @@ import type { UserTable } from '../models/user_table';
 import http from './axios'
 
 export class questionService {
-    static async getAll(locale?: string,page?: number, pageSize?: number, Search?: string, orderBy?: string) {
-        return new Promise<UserTable>((resolve, reject) => {
-            http.get('/api/users',{ params: {
-                Search: Search,
-                pageSize: pageSize,
-                page: page,
+    static async getAll(locale?: string,) {
+        return new Promise<QuestionCreate[]>((resolve, reject) => {
+            http.get('/api/questions',{ params: {
                 locale: locale
             }}).then(response => {
-                resolve(response.data);
+                resolve(response.data.data);
             }).catch(error => {
                 reject(error);
             });
@@ -24,7 +21,7 @@ export class questionService {
         return new Promise<QuestionCreate[]>((resolve, reject) => {
             let headers = { "Content-Type": "multipart/form-data" };
             http.post('/api/questions?locale=' + locale, questions,{headers}).then(response => {
-                resolve(response.data);
+                resolve(response.data.data);
             }).catch(error => {
                 reject(error.response);
             });

@@ -29,7 +29,7 @@ class WizardController extends Controller
      */
     public function index(Applicant $applicant)
     {
-        $questions = Question::when($applicant, function ($query, $applicant) {
+        $questions = Question::where('form_no', 2)->when($applicant, function ($query, $applicant) {
             $query->with(['answerquestion' => function ($query) use ($applicant) {
                 $query->where('applicant_id', $applicant->id);
             }]);
@@ -87,11 +87,11 @@ class WizardController extends Controller
 
         if ($flag === "submitted") {
             ApplicationStatus::create(['applicant_id' => $applicant->id, 'status' => 'submitted']);
-            Mail::to($applicant->email)->queue(new ApplicationSubmittedMail($applicant->firstname.' '.$applicant->surname));
+            Mail::to($applicant->email)->queue(new ApplicationSubmittedMail($applicant->firstname . ' ' . $applicant->surname));
             $users = User::where('notification', 1)->select()->get();
             if ($users) {
                 foreach ($users as $user) {
-                    Mail::to($user->email)->queue(new AdminApplicationNotificationMail($user->firstname.' '.$user->lastname, $applicant->token));
+                    Mail::to($user->email)->queue(new AdminApplicationNotificationMail($user->firstname . ' ' . $user->lastname, $applicant->token));
                 }
             }
         }

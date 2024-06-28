@@ -1,6 +1,6 @@
 <template>
   <div class="main-view">
-    <div class="layout_margin">
+    <div class="layout_margin" v-if="createFormState.wizardLoad">
       <div class="mb-4" v-if="!isDelete">
         <div class="form-header">
           <el-button v-if="!isVisible" type="primary" @click="toggleFormSection"
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, reactive } from "vue";
+import { ref, Ref, reactive, onBeforeMount, onMounted } from "vue";
 import AddField from "@/components/addField.vue";
 import formBuild from "@/components/formBuild.vue";
 import type { QuestionCreate, StepCreate } from "../../../client/index";
@@ -70,6 +70,7 @@ const steps = ref<StepCreate>({
 const createFormState = reactive({
   errorMsg: "",
   loading: false,
+  wizardLoad: false,
 });
 
 const toggleFormSection = () => {
@@ -151,16 +152,36 @@ const submitQuestions = async () => {
   let formData = new FormData();
   formData.append("questions", JSON.stringify(allQuestions.value));
   if (allQuestions.value.length > 0) {
+    createFormState.loading = true;
     await questionService
       .create(formData, i18nLocale.locale.value)
       .then((questions: QuestionCreate[]) => {
         allQuestions.value = questions;
+        createFormState.loading = false;
       })
       .catch((error) => {
         createFormState.errorMsg = error.data.message;
+        createFormState.loading = false;
       });
   }
 };
+
+onMounted(() => {
+  createFormState.wizardLoad = false;
+
+  let stepinitial = 1;
+  questionService.getAll(i18nLocale.locale.value).then((questions: QuestionCreate[]) => {
+    questions.forEach((question: QuestionCreate, index) => {
+      allQuestions.value.push(question);
+      if (question.step > stepinitial) {
+        steps.value.totalStep.push(question.step);
+        stepinitial = question.step;
+      }
+      createFormState.wizardLoad = true;
+    });
+  });
+  console.log(allQuestions.value, steps.value);
+});
 </script>
 <style lang="scss" scoped>
 .delete-div {

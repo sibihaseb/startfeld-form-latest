@@ -165,7 +165,8 @@ export class wizardHelper{
                     value: "",
                   };
                 }
-              } else {
+              }
+              else {
                 if(!allAnswer.value[index as keyof object])
                 {
                     allAnswer.value.push({
@@ -173,9 +174,27 @@ export class wizardHelper{
                         value: "",
                     });
                 }
+                else{
+                    allAnswer.value[index as keyof object] = { question_id: index, value: '' };
+                }
+
+              }
+            }else if (
+              question.answer_type === QuestionAnswerType.key &&
+              question.options?.key === "team_members"
+            ) {
+              if (question.answer?.value) {
+                allAnswer.value[index as keyof object] = {
+                  question_id: index,
+                  value: "",
+                };
+              } else {
                 allAnswer.value[index as keyof object] = { question_id: index, value: '' };
               }
             }
+            else {
+                allAnswer.value[index as keyof object] = { question_id: index,  value: '' };
+              }
           });
     }
 

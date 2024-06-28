@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\QuestionResource;
 
 class QuestionController extends Controller
 {
@@ -13,7 +14,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $allQuestion = Question::where('form_no', 2)->get();
+        return QuestionResource::collection($allQuestion);
     }
 
     /**
@@ -29,24 +31,28 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $questions = json_decode($request->questions);
-
+        $questions = json_decode($request->questions, true);
+        // Question::where('form_no', 2)->delete();
         foreach ($questions as $question) {
-            $createFormQuestions = [
+            Question::updateOrCreate([
+                'id' => $question['id'],
                 'form_no' => 2,
-                'step' => $question->step,
-                'sort_order' => $question->sort_order,
-                'title' => $question->title,
-                'description' => $question->description,
-                'answer_type' => $question->answer_type,
-                'options' => $question->options,
-                'is_mandatory' => $question->is_mandatory,
-            ];
-
-            Question::create($createFormQuestions);
+                'step' => $question['step'],
+                'sort_order' => $question['sort_order'],
+            ], [
+                'form_no' => 2,
+                'step' => $question['step'],
+                'sort_order' => $question['sort_order'],
+                'title' => $question['title'],
+                'description' => $question['description'],
+                'answer_type' => $question['answer_type'],
+                'options' => $question['options'],
+                'is_mandatory' => $question['is_mandatory'],
+            ]);
         }
 
-        dd(Question::where('form_no', 2)->get());
+        $allQuestion = Question::where('form_no', 2)->get();
+        return QuestionResource::collection($allQuestion);
     }
 
     /**

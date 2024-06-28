@@ -390,6 +390,7 @@ const stepDisplay = (stepNumber: number) => {
 onMounted(() => {
   allQuestions.value = props.allQuestions;
   stepAnswerMap();
+  console.log(allAnswer.value);
   WizardProgressTracker.activeStepNo = props.steps.activeStepNo;
   WizardProgressTracker.totalStep = props.steps.totalStep.length;
   stepDisplay(props.steps.activeStepNo);
