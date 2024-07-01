@@ -73,9 +73,10 @@ class ApplicantController extends Controller
     {
         $input = $request->validated();
         $this->authorize('update', [Applicant::class, $applicant, $input['token']]);
-        if($input['current_status'] !== 'other')
-        {
-            $input['current_status_other'] = null;
+        if (isset($input['current_status'])) {
+            if ($input['current_status'] !== 'other') {
+                $input['current_status_other'] = null;
+            }
         }
         $applicant->update($input);
 

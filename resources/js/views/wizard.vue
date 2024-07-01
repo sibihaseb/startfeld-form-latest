@@ -41,7 +41,7 @@
           <span class="space-bottom">{{ wizardState.successMsg }}</span>
           <span
             >{{ $t("wizard.mainContactDetail.titleToken") + " : " }}
-            <a class="link" :href="SITEURL + '/' + applicantStore.applicantToken">{{
+            <a class="link" :href="SITEURL + '/form/' + applicantStore.applicantToken">{{
               SITEURL + "/" + applicantStore.applicantToken
             }}</a>
           </span>
@@ -956,20 +956,11 @@ const validateForm = () => {
             }
           });
         } else if (error.$property === "email") {
-          wizardState.validatedMembers = true;
+          wizardState.validatedMembers = false;
         }
       });
     });
     return true;
-  } else if (teamMemberData.value) {
-    if (wizardState.validatedMembers) {
-      WizardProgressTracker.errorStep[8].status = "error";
-      return true;
-    } else {
-      wizardState.validatedMembers = false;
-      WizardProgressTracker.errorStep[8].status = "";
-      return false;
-    }
   } else {
     WizardProgressTracker.errorStep.forEach((error) => {
       error.status = "";

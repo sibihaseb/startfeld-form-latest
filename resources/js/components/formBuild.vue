@@ -22,13 +22,24 @@
                   : question.title.name.en
               }}
             </h3>
-            <p>
-              {{
-                i18nLocale.locale.value === "de"
-                  ? question.description?.name.de
-                  : question.description?.name.en
-              }}
-            </p>
+            <div class="edit_option">
+              <div>
+                <p v-if="question.description">
+                  {{
+                    i18nLocale.locale.value === "de"
+                      ? question.description.name.de
+                      : question.description.name.en
+                  }}
+                </p>
+              </div>
+              <div>
+                <i class="ri-pencil-fill edit-color" @click="editQuestion(question)"></i>
+                <i
+                  class="ri-delete-bin-line delete-color"
+                  @click="deleteQuestion(question)"
+                ></i>
+              </div>
+            </div>
           </div>
           <div v-else-if="question.answer_type === QuestionAnswerType.key">
             <applicant
@@ -295,7 +306,10 @@
                 "
                 :question="question"
                 :answerValue="allAnswer[index].value"
+                :formbuild="true"
                 @file-submitted="saveFileToAnswers"
+                @edit-file-question="editQuestion"
+                @delete-file-question="deleteQuestion"
               ></file-upload>
             </el-form>
           </div>

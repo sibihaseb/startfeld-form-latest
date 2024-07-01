@@ -126,9 +126,6 @@
                 $t("wizard.mainContactDetail.labelFemale")
               }}</el-radio>
             </el-radio-group>
-            <div class="el-form-item__error" v-if="v$.about_us.$error">
-              <div class="error-msg">{{ v$.about_us.$errors[0].$message }}</div>
-            </div>
           </el-form-item>
           <div class="error-msg api-error" v-if="props.error">
             {{ props.error }}

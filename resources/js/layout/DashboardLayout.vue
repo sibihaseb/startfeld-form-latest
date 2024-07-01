@@ -2,7 +2,16 @@
   <header>
     <div class="main-view">
       <div class="header-content">
-        <img class="click-icon logo" src="../assets/images/STARTFELD.svg" @click="home" />
+        <RouterLink :to="{ name: 'landingPage' }"
+          ><img
+            class="click-icon logo"
+            width="150"
+            height="50"
+            src="../assets/images/FokusLogo.svg"
+            @click="home"
+          />
+        </RouterLink>
+
         <div class="nav-bar">
           <h3 class="space-top greeting">
             {{ $t("layout.dashboardLayout.welcomeMessage") }},
@@ -49,11 +58,19 @@
             ></i>
           </RouterLink>
           <RouterLink
-            :to="{ name: 'profile' }"
+            v-if="authStore.me?.role === 'superadmin'"
+            :to="{ name: 'form_bulid' }"
             class="nav-item space-left space-top"
-            >
-            <i class="ri-settings-2-line ri-lg"
-            :title="$t('layout.dashboardLayout.labelProfileSetting')"></i>
+            ><i
+              class="ri-survey-line ri-lg"
+              :title="$t('layout.dashboardLayout.labelFormDevelopment')"
+            ></i>
+          </RouterLink>
+          <RouterLink :to="{ name: 'profile' }" class="nav-item space-left space-top">
+            <i
+              class="ri-settings-2-line ri-lg"
+              :title="$t('layout.dashboardLayout.labelProfileSetting')"
+            ></i>
           </RouterLink>
           <i
             class="ri-logout-box-r-line ri-lg click-icon logout space-left space-top"
@@ -70,16 +87,26 @@
   <footer class="footer">
     <div>
       <div class="elementor-shape">
-        <svg class="footer-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-          <path class="elementor-shape-fill" d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"></path>
+        <svg
+          class="footer-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1000 100"
+          preserveAspectRatio="none"
+        >
+          <path
+            class="elementor-shape-fill"
+            d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"
+          ></path>
         </svg>
       </div>
     </div>
     <div class="footer-view">
       <div class="copyright-row">
-        <p>© 2023 STARTFELD</p>
-      <p>&nbsp;{{ $t('layout.dashboardLayout.footer.poweredBy') }} &nbsp; <a class="link" href="https://www.xtendum.com/" target="_blank">xtendum</a>
-        </p>
+        <p>© 2024 FOKUS NETWORK</p>
+        <!-- <p>
+          &nbsp;{{ $t("layout.dashboardLayout.footer.poweredBy") }} &nbsp;
+          <a class="link" href="https://www.xtendum.com/" target="_blank">xtendum</a>
+        </p> -->
       </div>
     </div>
   </footer>
@@ -134,8 +161,8 @@ const home = () => {
 
 <style lang="scss" scoped>
 @use '../assets/scss/colors.scss' as *;
-.logo{
-    fill: $primary;
+.logo {
+  fill: $primary;
 }
 .nav-bar {
   display: flex;
@@ -164,26 +191,24 @@ const home = () => {
   font-weight: bold;
 }
 @media screen and (max-width: 860px) {
+  .logo {
+    width: 100px;
+    height: 60px;
+  }
 
-    .logo{
-        width: 100px;
-        height: 60px;
-    }
-
-    .greeting{
-        font-size: small;
-    }
+  .greeting {
+    font-size: small;
+  }
 }
 @media screen and (max-width: 400px) {
+  .logo {
+    width: 58px;
+    height: 50px;
+  }
 
-    .logo{
-        width: 58px;
-        height: 50px;
-    }
-
-    .greeting{
-        font-size: small;
-    }
+  .greeting {
+    font-size: small;
+  }
 }
 
 .space-top {
@@ -211,17 +236,17 @@ const home = () => {
 .elementor-shape-fill {
   fill: $footer-svg-color;
 }
-.maincontent{
-    min-height: calc(100vh - 250px);
+.maincontent {
+  min-height: calc(100vh - 250px);
 }
-.copyright-row{
-    display: flex;
-    padding-top: 10px;
-    justify-content: space-between;
+.copyright-row {
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between;
 }
-.footer-view{
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+.footer-view {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

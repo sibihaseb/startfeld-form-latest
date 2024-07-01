@@ -168,7 +168,6 @@ const submitQuestions = async () => {
 
 onMounted(() => {
   createFormState.wizardLoad = false;
-
   let stepinitial = 1;
   questionService.getAll(i18nLocale.locale.value).then((questions: QuestionCreate[]) => {
     questions.forEach((question: QuestionCreate, index) => {
@@ -177,10 +176,9 @@ onMounted(() => {
         steps.value.totalStep.push(question.step);
         stepinitial = question.step;
       }
-      createFormState.wizardLoad = true;
     });
+    createFormState.wizardLoad = true;
   });
-  console.log(allQuestions.value, steps.value);
 });
 </script>
 <style lang="scss" scoped>
